@@ -1,0 +1,2267 @@
+<!doctype html>
+<html lang="en" data-theme="red">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Oviya A. — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          paper: '#F6F2FB',
+          paperRaise: '#ECE4F7',
+          ink: '#2B2438',
+          inkSoft: '#6B6178',
+          brand: '#6E56CF',
+          brandSoft: '#E8E1FA',
+          mustard: '#E0A23B',
+          line: '#D9CFEC',
+        },
+        fontFamily: {
+          display: ['"Space Grotesk"', 'Inter', 'sans-serif'],
+          sans: ['Inter', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', '"Courier New"', 'monospace'],
+        },
+      },
+    },
+  }
+</script>
+<style>
+  /* ===== Theme variable sets ===== */
+  :root{
+    --paper:#F6F2FB;
+    --paper-raise:#ECE4F7;
+    --ink:#2B2438;
+    --ink-soft:#6B6178;
+    --brand:#6E56CF;
+    --brand-rgb:110,86,207;
+    --brand-soft:#E8E1FA;
+    --mustard:#E0A23B;
+    --line:#D9CFEC;
+    --surface:rgba(255,255,255,.5);
+    --nav-bg:rgba(246,242,251,.9);
+    --blob-1:#6E56CF;
+    --blob-2:#E0A23B;
+    --blob-3:#9B7FE0;
+  }
+  html[data-theme="dark"]{
+    --paper:#15121C;
+    --paper-raise:#1E1A28;
+    --ink:#EDE9F7;
+    --ink-soft:#A79FBD;
+    --brand:#9C8CFF;
+    --brand-rgb:156,140,255;
+    --brand-soft:rgba(156,140,255,.16);
+    --mustard:#F0B84E;
+    --line:#332C47;
+    --surface:rgba(255,255,255,.05);
+    --nav-bg:rgba(21,18,28,.85);
+    --blob-1:#9C8CFF;
+    --blob-2:#F0B84E;
+    --blob-3:#7C6AE8;
+  }
+  html[data-theme="pink"]{
+    --paper:#1B0F16;
+    --paper-raise:#251621;
+    --ink:#F8E9F0;
+    --ink-soft:#C58EA5;
+    --brand:#FF5C8A;
+    --brand-rgb:255,92,138;
+    --brand-soft:rgba(255,92,138,.16);
+    --mustard:#F2A65A;
+    --line:#3B1F2D;
+    --surface:rgba(255,255,255,.05);
+    --nav-bg:rgba(27,15,22,.85);
+    --blob-1:#FF5C8A;
+    --blob-2:#F2A65A;
+    --blob-3:#C13584;
+  }
+  html[data-theme="red"]{
+    --paper:#FBF1EF;
+    --paper-raise:#F5E2DE;
+    --ink:#301412;
+    --ink-soft:#7A4C47;
+    --brand:#C4342B;
+    --brand-rgb:196,52,43;
+    --brand-soft:#F6D9D6;
+    --mustard:#E0A23B;
+    --line:#E8CAC5;
+    --surface:rgba(255,255,255,.55);
+    --nav-bg:rgba(251,241,239,.9);
+    --blob-1:#C4342B;
+    --blob-2:#E0A23B;
+    --blob-3:#8C2B24;
+  }
+  html[data-theme="yellow"]{
+    --paper:#FFF8E7;
+    --paper-raise:#FCEFC7;
+    --ink:#3A2E0A;
+    --ink-soft:#8A7530;
+    --brand:#C98A0A;
+    --brand-rgb:201,138,10;
+    --brand-soft:#FCEBB6;
+    --mustard:#C4342B;
+    --line:#EDDBA0;
+    --surface:rgba(255,255,255,.55);
+    --nav-bg:rgba(255,248,231,.9);
+    --blob-1:#C98A0A;
+    --blob-2:#C4342B;
+    --blob-3:#8C5E06;
+  }
+
+  /* Things Tailwind utilities can't express directly */
+  body{
+    background-color:var(--paper);
+    color:var(--ink);
+    position:relative;
+    overflow-x:hidden;
+    transition:background-color .35s ease, color .35s ease;
+  }
+
+  .bg-grid{
+    position:fixed;
+    inset:-40px;
+    z-index:0;
+    background-image: repeating-linear-gradient(
+      var(--line) 0px, var(--line) 1px, transparent 1px, transparent 34px
+    );
+    opacity:.5;
+    animation:driftGrid 50s linear infinite;
+    pointer-events:none;
+    transition:background-image .35s ease;
+  }
+  @keyframes driftGrid{
+    0%{background-position:0 0;}
+    100%{background-position:0 340px;}
+  }
+
+  /* ring-binder margin, desktop only, pinned while page scrolls beneath it */
+  .notebook-margin{
+    position:fixed;
+    top:0; left:0; bottom:0;
+    width:64px;
+    z-index:2;
+    pointer-events:none;
+    background:var(--paper-raise);
+    border-right:2px solid var(--line);
+    display:none;
+    transition:background .35s ease, border-color .35s ease;
+  }
+  @media (min-width:1280px){ .notebook-margin{ display:block; } }
+  .notebook-margin .margin-rule{
+    position:absolute; top:0; bottom:0; right:12px; width:2px;
+    background:var(--mustard); opacity:.65;
+  }
+
+  /* sticky-note section tags: the page's recurring signature element */
+  .sticky-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:'IBM Plex Mono','Courier New',monospace;
+    font-size:.72rem;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--brand);
+    background:var(--brand-soft);
+    border:1px dashed var(--brand);
+    padding:6px 12px;
+    border-radius:3px;
+    margin-bottom:16px;
+    position:relative;
+    box-shadow:1px 3px 6px rgba(0,0,0,.08);
+  }
+  .sticky-tag .tape{
+    position:absolute;
+    top:-9px; left:50%;
+    transform:translateX(-50%) rotate(-3deg);
+    width:42px; height:15px;
+    background:rgba(255,255,255,.5);
+    border:1px solid rgba(255,255,255,.65);
+  }
+
+  /* handwritten annotation voice, used sparingly */
+  .hand-note{
+    font-family:'Caveat',cursive;
+    font-weight:600;
+    color:var(--brand);
+    line-height:1.1;
+  }
+
+  /* project cards pinned at a slight angle, like notebook clippings */
+  .pinned-card{
+    position:relative;
+  }
+  .pinned-card::before{
+    content:"📌";
+    position:absolute;
+    top:-14px; left:22px;
+    font-size:1.3rem;
+    transform:rotate(-18deg);
+    filter:drop-shadow(0 2px 2px rgba(0,0,0,.25));
+  }
+
+  /* outer wrap = mouse parallax (JS-driven inline transform)   */
+  /* inner .blob = ambient float (CSS keyframe transform)       */
+  .blob-wrap{
+    position:fixed;
+    z-index:0;
+    pointer-events:none;
+    will-change:transform;
+    transition:transform .15s linear;
+  }
+  .blob{
+    opacity:.55;
+    transition:opacity .35s ease;
+  }
+  .blob-1{
+    width:420px; height:420px;
+    animation:floatA 22s ease-in-out infinite;
+  }
+  .blob-2{
+    width:360px; height:360px;
+    animation:floatB 28s ease-in-out infinite;
+  }
+  .blob-3{
+    width:300px; height:300px;
+    animation:floatC 32s ease-in-out infinite;
+  }
+  .blob-wrap-1{ top:-120px; left:-100px; }
+  .blob-wrap-2{ top:40%; right:-120px; }
+  .blob-wrap-3{ bottom:-100px; left:30%; }
+
+  @keyframes floatA{
+    0%,100%{transform:translate(0,0) scale(1);}
+    50%{transform:translate(60px,80px) scale(1.15);}
+  }
+  @keyframes floatB{
+    0%,100%{transform:translate(0,0) scale(1);}
+    50%{transform:translate(-70px,50px) scale(1.1);}
+  }
+  @keyframes floatC{
+    0%,100%{transform:translate(0,0) scale(1);}
+    50%{transform:translate(50px,-60px) scale(1.2);}
+  }
+
+  /* mouse light: soft glowing spotlight that follows the cursor */
+  .cursor-glow{
+    position:fixed;
+    top:0; left:0;
+    width:320px; height:320px;
+    margin:-160px 0 0 -160px;
+    border-radius:9999px;
+    background:radial-gradient(circle,
+      rgba(var(--brand-rgb),.32) 0%,
+      rgba(var(--brand-rgb),.12) 40%,
+      rgba(var(--brand-rgb),0) 72%);
+    opacity:.9;
+    pointer-events:none;
+    z-index:50;
+    will-change:transform;
+    filter:blur(2px);
+  }
+  .cursor-dot{
+    position:fixed;
+    top:0; left:0;
+    width:8px; height:8px;
+    margin:-4px 0 0 -4px;
+    border-radius:9999px;
+    background:var(--brand);
+    box-shadow:0 0 10px 2px rgba(var(--brand-rgb),.7);
+    pointer-events:none;
+    z-index:51;
+    will-change:transform;
+    transition:width .15s, height .15s, margin .15s, background .35s;
+  }
+  .cursor-dot.is-active{
+    width:26px; height:26px;
+    margin:-13px 0 0 -13px;
+    background:rgba(var(--brand-rgb),.35);
+  }
+  @media (hover:none){ .cursor-glow, .cursor-dot{ display:none; } }
+
+  /* theme picker */
+  .theme-picker{
+    position:fixed;
+    bottom:20px; right:20px;
+    z-index:50;
+    display:flex; gap:8px;
+    padding:8px;
+    border-radius:9999px;
+    border:1.5px solid var(--line);
+    background:var(--nav-bg);
+    backdrop-filter:blur(6px);
+    transition:background .35s ease, border-color .35s ease;
+  }
+  .theme-swatch{
+    width:20px; height:20px;
+    border-radius:9999px;
+    border:2px solid rgba(255,255,255,.6);
+    cursor:pointer;
+    padding:0;
+  }
+  .theme-swatch.is-active{
+    box-shadow:0 0 0 2px var(--paper), 0 0 0 4px var(--brand);
+  }
+
+  main, nav, header, section, footer{position:relative; z-index:1;}
+  .cursor{animation:blink 1s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  @media (prefers-reduced-motion: reduce){
+    .cursor, .bg-grid, .blob-1, .blob-2, .blob-3{animation:none;}
+    .cursor-glow, .cursor-dot{display:none;}
+    body{cursor:auto;}
+    html{scroll-behavior:auto;}
+  }
+  html{scroll-behavior:smooth;}
+  ::selection{background:var(--mustard); color:var(--ink);}
+</style>
+
+<style id="extra-flash">
+  /* ===== EXTRA: scroll progress bar ===== */
+  .scroll-progress{
+    position:fixed; top:0; left:0; height:3px; width:0%;
+    background:linear-gradient(90deg, var(--brand), var(--mustard));
+    z-index:60; pointer-events:none;
+    transition:width .08s linear;
+  }
+
+  /* ===== EXTRA: scroll-reveal for sections ===== */
+  .reveal-init{ opacity:0; transform:translateY(28px); }
+  .reveal-init.in-view{
+    animation:revealUp .7s cubic-bezier(.22,.9,.32,1) forwards;
+  }
+  @keyframes revealUp{
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  /* ===== EXTRA: magnetic CTA buttons ===== */
+  .magnetic-btn{
+    display:inline-block;
+    transition:transform .18s cubic-bezier(.2,.9,.3,1.2);
+    will-change:transform;
+  }
+
+  /* ===== EXTRA: spotlight-on-hover for pinned project cards ===== */
+  .pinned-card{
+    overflow:hidden;
+  }
+  .pinned-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:0;
+    background:radial-gradient(220px circle at var(--mx,50%) var(--my,50%), rgba(var(--brand-rgb),.14), transparent 70%);
+    opacity:0;
+    transition:opacity .25s ease;
+    pointer-events:none;
+  }
+  .pinned-card:hover::after{ opacity:1; }
+  .pinned-card > *{ position:relative; z-index:1; }
+  .pinned-card{
+    transition:box-shadow .25s ease, transform .25s ease;
+  }
+  .pinned-card:hover{
+    box-shadow:0 12px 28px -12px rgba(var(--brand-rgb),.35);
+  }
+
+  /* ===== EXTRA: copy-to-clipboard toast ===== */
+  .copy-toast{
+    position:fixed;
+    bottom:24px; left:50%;
+    transform:translateX(-50%) translateY(16px);
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'IBM Plex Mono','Courier New',monospace;
+    font-size:.8rem;
+    padding:10px 18px;
+    border-radius:8px;
+    z-index:70;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s ease, transform .25s ease;
+    box-shadow:0 10px 24px rgba(0,0,0,.25);
+  }
+  .copy-toast.is-visible{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+  }
+  .copyable{ cursor:pointer; }
+
+  /* ===== EXTRA: konami easter egg confetti canvas ===== */
+  #confettiCanvas{
+    position:fixed; inset:0; z-index:80; pointer-events:none;
+  }
+  .easter-toast{
+    position:fixed;
+    top:24px; left:50%;
+    transform:translateX(-50%) translateY(-16px);
+    background:var(--brand);
+    color:#fff;
+    font-family:'Space Grotesk','Inter',sans-serif;
+    font-weight:600;
+    font-size:.95rem;
+    padding:12px 22px;
+    border-radius:10px;
+    z-index:81;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .3s ease, transform .3s ease;
+    box-shadow:0 14px 30px rgba(var(--brand-rgb),.4);
+  }
+  .easter-toast.is-visible{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+  }
+
+  /* ===== EXTRA: AI avatar greeting widget ===== */
+  .ai-avatar-widget{
+    position:fixed;
+    left:20px; bottom:20px;
+    z-index:55;
+    display:flex;
+    flex-direction:column-reverse;
+    align-items:flex-start;
+    gap:10px;
+    opacity:0;
+    transform:translateY(16px) scale(.9);
+    transition:opacity .5s ease, transform .5s cubic-bezier(.2,.9,.3,1.2);
+    pointer-events:none;
+  }
+  .ai-avatar-widget.is-visible{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    pointer-events:auto;
+  }
+  .ai-avatar-face{
+    width:64px; height:64px;
+    border-radius:9999px;
+    box-shadow:0 8px 20px rgba(var(--brand-rgb),.35);
+    animation:avatarBob 3.2s ease-in-out infinite;
+    flex-shrink:0;
+  }
+  @keyframes avatarBob{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-5px); }
+  }
+  #aiEyeL, #aiEyeR{
+    animation:avatarBlink 4.5s ease-in-out infinite;
+    transform-origin:center;
+  }
+  #aiEyeR{ animation-delay:.08s; }
+  @keyframes avatarBlink{
+    0%, 92%, 100%{ transform:scaleY(1); }
+    95%{ transform:scaleY(0.12); }
+  }
+  #aiMouth{ transition:d .1s ease; }
+  .ai-avatar-face.is-talking #aiMouth{
+    animation:avatarTalk .28s ease-in-out infinite alternate;
+  }
+  @keyframes avatarTalk{
+    0%{ d:path("M 34 68 Q 50 68 66 68"); }
+    100%{ d:path("M 36 65 Q 50 78 64 65"); }
+  }
+  .ai-avatar-bubble{
+    position:relative;
+    max-width:280px;
+    background:var(--surface);
+    backdrop-filter:blur(6px);
+    border:1.5px solid var(--line);
+    border-radius:14px;
+    padding:12px 40px 12px 14px;
+    font-family:'IBM Plex Mono','Courier New',monospace;
+    font-size:.8rem;
+    line-height:1.45;
+    color:var(--ink);
+    box-shadow:0 10px 26px rgba(0,0,0,.12);
+  }
+  .ai-avatar-bubble::after{
+    content:"";
+    position:absolute;
+    left:22px; bottom:-8px;
+    width:14px; height:14px;
+    background:var(--surface);
+    border-right:1.5px solid var(--line);
+    border-bottom:1.5px solid var(--line);
+    transform:rotate(45deg);
+  }
+  .ai-avatar-cursor{
+    display:inline-block;
+    color:var(--brand);
+    animation:blink 1s steps(1) infinite;
+  }
+  .ai-avatar-controls{
+    position:absolute;
+    top:8px; right:8px;
+    display:flex; gap:4px;
+  }
+  .ai-avatar-controls button{
+    width:22px; height:22px;
+    border-radius:6px;
+    border:1px solid var(--line);
+    background:var(--paper);
+    font-size:.7rem;
+    line-height:1;
+    cursor:pointer;
+    color:var(--ink-soft);
+    transition:border-color .15s, color .15s;
+  }
+  .ai-avatar-controls button:hover{
+    border-color:var(--brand);
+    color:var(--brand);
+  }
+  @media (max-width:640px){
+    .ai-avatar-widget{ left:12px; bottom:12px; }
+    .ai-avatar-bubble{ max-width:220px; font-size:.75rem; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .ai-avatar-face{ animation:none; }
+    #aiEyeL, #aiEyeR, .ai-avatar-face.is-talking #aiMouth{ animation:none; }
+  }
+
+  /* ===== EXTRA: two-sided project flip cards (front = info, back = screenshots) ===== */
+  .project-flip-outer{
+    perspective:1800px;
+  }
+  .project-flip-inner{
+    position:relative;
+    width:100%;
+    cursor:pointer;
+    transition:transform .6s cubic-bezier(.4,.2,.2,1);
+    transform-style:preserve-3d;
+  }
+  .project-flip-inner.is-flipped{
+    transform:rotateY(180deg);
+  }
+  .project-face{
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+  }
+  .project-face-front{
+    position:relative;
+  }
+  .project-face-back{
+    position:absolute;
+    inset:0;
+    transform:rotateY(180deg);
+    overflow:auto;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .project-flip-inner{ transition:none; }
+  }
+
+  /* ===== EXTRA: hero stat count-up entrance pop ===== */
+  .stat-pop.in-view{
+    animation:statPop .5s cubic-bezier(.2,.9,.3,1.3) forwards;
+  }
+  @keyframes statPop{
+    0%{ transform:scale(.85); opacity:0; }
+    100%{ transform:scale(1); opacity:1; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal-init{ opacity:1; transform:none; animation:none; }
+    .magnetic-btn{ transition:none; }
+    .stat-pop.in-view{ animation:none; }
+  }
+
+  /* ===== EXTRA: lightbox for full-size screenshot viewing ===== */
+  .lightbox-overlay{
+    position:fixed;
+    inset:0;
+    z-index:90;
+    background:rgba(15,10,20,.88);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px 20px;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s ease;
+  }
+  .lightbox-overlay.is-visible{
+    opacity:1;
+    pointer-events:auto;
+  }
+  .lightbox-overlay img{
+    max-width:min(92vw, 1100px);
+    max-height:88vh;
+    width:auto;
+    height:auto;
+    object-fit:contain;
+    border-radius:10px;
+    box-shadow:0 20px 60px rgba(0,0,0,.5);
+  }
+  .lightbox-close{
+    position:absolute;
+    top:20px; right:24px;
+    width:40px; height:40px;
+    border-radius:9999px;
+    border:1.5px solid rgba(255,255,255,.35);
+    background:rgba(255,255,255,.08);
+    color:#fff;
+    font-size:1.1rem;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:background .15s;
+  }
+  .lightbox-close:hover{ background:rgba(255,255,255,.2); }
+  .lightbox-hint{
+    position:absolute;
+    bottom:20px; left:50%;
+    transform:translateX(-50%);
+    font-family:'IBM Plex Mono','Courier New',monospace;
+    font-size:.72rem;
+    color:rgba(255,255,255,.6);
+  }
+  [data-lightbox-src]{ cursor:zoom-in; }
+
+  /* ===== EXTRA: stat detail popups (Projects / Technologies / Years / Certifications) ===== */
+  .stat-trigger{
+    background:none;
+    border:none;
+    width:100%;
+    cursor:pointer;
+  }
+  .stat-modal{
+    position:relative;
+    max-width:420px;
+    width:100%;
+    max-height:80vh;
+    overflow:auto;
+    background:var(--paper);
+    border:1.5px solid var(--line);
+    border-radius:16px;
+    padding:28px 24px 24px;
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+  }
+  .stat-modal .lightbox-close{
+    position:absolute; top:12px; right:12px;
+    width:32px; height:32px;
+    border-color:var(--line);
+    background:var(--surface);
+    color:var(--ink);
+  }
+  .stat-modal .lightbox-close:hover{ background:var(--brand-soft); }
+  .stat-modal-list{ display:flex; flex-direction:column; gap:12px; }
+  .stat-modal-list li{
+    font-family:'IBM Plex Mono','Courier New',monospace;
+    font-size:.82rem;
+    color:var(--ink-soft);
+    border-left:2px solid var(--mustard);
+    padding-left:10px;
+  }
+  .stat-modal-list li b{
+    color:var(--ink);
+    display:block;
+    font-family:'Space Grotesk','Inter',sans-serif;
+    font-size:.95rem;
+    margin-bottom:2px;
+  }
+  .stat-modal-tags{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .stat-modal-tags span{
+    font-family:'IBM Plex Mono','Courier New',monospace;
+    font-size:.68rem;
+    padding:3px 9px;
+    background:var(--brand-soft);
+    color:var(--brand);
+    border-radius:6px;
+  }
+
+  /* ===== EXTRA: typewriter effect for select section headings ===== */
+  .type-cursor{
+    display:inline-block;
+    color:var(--brand);
+    animation:blink 1s steps(1) infinite;
+  }
+</style>
+</head>
+<body class="text-[var(--ink)] font-sans leading-relaxed">
+<div class="scroll-progress" id="scrollProgress"></div>
+<canvas id="confettiCanvas"></canvas>
+<div class="copy-toast" id="copyToast">copied ✓</div>
+<div class="easter-toast" id="easterToast">🎉 easter egg found — nice curiosity, that's a good sign for a data person</div>
+
+<!-- lightbox for viewing screenshots full-size -->
+<div class="lightbox-overlay" id="lightboxOverlay">
+  <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close image viewer">✕</button>
+  <img id="lightboxImg" src="" alt="">
+  <div class="lightbox-hint">click anywhere or press Esc to close</div>
+</div>
+
+<!-- stat detail popup: shows Projects / Technologies / Years / Certifications -->
+<div class="lightbox-overlay" id="statModalOverlay">
+  <div class="stat-modal" id="statModalBox" role="dialog" aria-modal="true">
+    <button type="button" class="lightbox-close" id="statModalClose" aria-label="Close">✕</button>
+    <div class="font-mono text-xs text-[var(--brand)] mb-1" id="statModalEyebrow">detail</div>
+    <h3 class="font-display font-bold text-xl mb-4" id="statModalTitle">Title</h3>
+    <ul class="stat-modal-list" id="statModalList"></ul>
+  </div>
+</div>
+
+<div class="bg-grid"></div>
+<div class="notebook-margin" aria-hidden="true"><div class="margin-rule"></div></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<div class="ai-avatar-widget" id="aiAvatarWidget" aria-live="polite">
+  <div class="ai-avatar-bubble" id="aiAvatarBubble">
+    <span id="aiAvatarText"></span><span class="ai-avatar-cursor" id="aiAvatarCursor">|</span>
+    <div class="ai-avatar-controls">
+      <button id="aiAvatarSpeak" title="Hear it out loud" aria-label="Play greeting audio">🔊</button>
+      <button id="aiAvatarClose" title="Dismiss" aria-label="Close greeting">✕</button>
+    </div>
+  </div>
+  <div class="ai-avatar-face" id="aiAvatarFace">
+    <svg viewBox="0 0 100 100" width="64" height="64" aria-hidden="true">
+      <defs>
+        <radialGradient id="avatarShine" cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="hairGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#3D3050"/>
+          <stop offset="100%" stop-color="#2B2438"/>
+        </linearGradient>
+      </defs>
+
+      <!-- face base -->
+      <circle cx="50" cy="52" r="42" fill="var(--brand)"/>
+      <circle cx="50" cy="52" r="42" fill="url(#avatarShine)"/>
+
+      <!-- hair: soft rounded bob with a side part -->
+      <path d="M 12 46
+               C 10 20, 30 6, 50 6
+               C 70 6, 90 20, 88 46
+               C 88 34, 78 24, 66 22
+               C 70 30, 68 40, 60 40
+               C 62 28, 54 20, 46 22
+               C 50 30, 44 40, 36 38
+               C 38 28, 30 24, 22 30
+               C 15 34, 12 40, 12 46 Z"
+            fill="url(#hairGradient)"/>
+      <!-- two small hair buns/tufts either side -->
+      <circle cx="14" cy="42" r="8" fill="url(#hairGradient)"/>
+      <circle cx="86" cy="42" r="8" fill="url(#hairGradient)"/>
+
+      <!-- cute bow on top -->
+      <g transform="translate(50,10) rotate(-8)">
+        <path d="M -10 0 C -10 -6, -2 -6, 0 0 C 2 -6, 10 -6, 10 0 C 10 6, 2 6, 0 0 C -2 6, -10 6, -10 0 Z" fill="var(--mustard)"/>
+        <circle cx="0" cy="0" r="2.4" fill="var(--mustard)"/>
+      </g>
+
+      <!-- blush -->
+      <ellipse cx="27" cy="60" rx="6" ry="3.6" fill="#FF9FBF" opacity="0.55"/>
+      <ellipse cx="73" cy="60" rx="6" ry="3.6" fill="#FF9FBF" opacity="0.55"/>
+
+      <!-- eyes: larger, with lashes -->
+      <g>
+        <ellipse id="aiEyeL" cx="36" cy="54" rx="5.6" ry="7.4" fill="var(--paper)"/>
+        <ellipse cx="37.2" cy="52" rx="2.1" ry="2.6" fill="#2B2438"/>
+        <path d="M 30 48 L 27 45.5 M 32.5 46.5 L 30.5 43.5 M 35.5 46 L 34.5 42.5" stroke="#2B2438" stroke-width="1.3" stroke-linecap="round"/>
+      </g>
+      <g>
+        <ellipse id="aiEyeR" cx="64" cy="54" rx="5.6" ry="7.4" fill="var(--paper)"/>
+        <ellipse cx="65.2" cy="52" rx="2.1" ry="2.6" fill="#2B2438"/>
+        <path d="M 70 48 L 73 45.5 M 67.5 46.5 L 69.5 43.5 M 64.5 46 L 65.5 42.5" stroke="#2B2438" stroke-width="1.3" stroke-linecap="round"/>
+      </g>
+
+      <!-- rosy nose hint -->
+      <circle cx="50" cy="62" r="1.1" fill="#2B2438" opacity="0.25"/>
+
+      <!-- mouth: soft smile -->
+      <path id="aiMouth" d="M 40 70 Q 50 76 60 70" stroke="#2B2438" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+
+      <!-- small hoop earrings -->
+      <circle cx="12" cy="54" r="2.4" fill="none" stroke="var(--mustard)" stroke-width="1.4"/>
+      <circle cx="88" cy="54" r="2.4" fill="none" stroke="var(--mustard)" stroke-width="1.4"/>
+    </svg>
+  </div>
+</div>
+
+<div class="hand-note text-lg fixed z-50" style="bottom:78px; right:34px; transform:rotate(-6deg);" aria-hidden="true">pick a color ↓</div>
+<div class="theme-picker" id="themePicker" role="group" aria-label="Color theme">
+  <button class="theme-swatch" data-theme-btn="" title="Lavender" style="background:#6E56CF"></button>
+  <button class="theme-swatch" data-theme-btn="dark" title="Dark" style="background:#15121C"></button>
+  <button class="theme-swatch" data-theme-btn="pink" title="Dark Pink" style="background:#FF5C8A"></button>
+  <button class="theme-swatch is-active" data-theme-btn="red" title="Red" style="background:#C4342B"></button>
+  <button class="theme-swatch" data-theme-btn="yellow" title="Yellow" style="background:#C98A0A"></button>
+</div>
+
+<nav class="sticky top-0 z-10 bg-[var(--nav-bg)] backdrop-blur-sm border-b-[1.5px] border-[var(--line)]">
+  <div class="max-w-[880px] mx-auto px-6 flex items-center justify-between py-3.5">
+    <div class="font-display font-bold text-lg tracking-wide">OVIYA<span class="text-[var(--brand)]">.</span></div>
+    <div class="hidden md:flex gap-5 font-mono text-sm text-[var(--ink-soft)]">
+      <a href="#about" class="hover:text-[var(--brand)]">about</a>
+      <a href="#skills" class="hover:text-[var(--brand)]">skills</a>
+      <a href="#projects" class="hover:text-[var(--brand)]">projects</a>
+      <a href="#experience" class="hover:text-[var(--brand)]">experience</a>
+      <a href="#education" class="hover:text-[var(--brand)]">education</a>
+      <a href="#sql-challenge" class="hover:text-[var(--brand)]">sql</a>
+      <a href="#contact" class="hover:text-[var(--brand)]">contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="max-w-[1180px] mx-auto px-6 pt-16 pb-20">
+  <div class="grid lg:grid-cols-[1.05fr_380px] gap-12 lg:gap-10 items-center">
+    <div>
+      <div class="flex items-start justify-between flex-wrap gap-3 mb-4">
+        <div class="sticky-tag !mb-0" style="transform:rotate(-2deg)"><span class="tape"></span>§ portfolio.init()</div>
+        <div class="flex items-start gap-3 flex-wrap">
+          <div class="inline-flex items-center gap-2 font-mono text-xs px-3 py-1.5 rounded-full border border-[var(--line)] bg-[var(--surface)] hover:border-[var(--brand)] hover:bg-[var(--brand-soft)] transition-colors" style="transform:rotate(1.5deg)">
+            <span class="relative flex h-2 w-2" aria-hidden="true">
+              <span class="absolute inline-flex h-full w-full rounded-full bg-[var(--brand)] opacity-60 animate-ping"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-[var(--brand)]"></span>
+            </span>
+            <span class="text-[var(--ink-soft)]">Open to AI, Web Development &amp; Software Engineering Internships</span>
+          </div>
+          <div class="inline-flex items-center gap-2 font-mono text-xs px-3 py-1.5 rounded-full border border-[var(--line)] bg-[var(--surface)] hover:border-[var(--brand)] hover:bg-[var(--brand-soft)] transition-colors" style="transform:rotate(-2deg)">
+            <span aria-hidden="true">📍</span>
+            <span class="text-[var(--ink-soft)]">Tiruchirappalli, Tamil Nadu, India · est. 2025</span>
+          </div>
+        </div>
+      </div>
+      <h1 class="font-display font-bold text-4xl md:text-6xl mb-4">
+        Hi, I'm <span class="relative inline-block">
+          Oviya A.
+          <svg class="absolute left-0 -bottom-1 w-full h-3 text-[var(--brand)]" viewBox="0 0 200 20" preserveAspectRatio="none" fill="none" aria-hidden="true">
+            <path d="M2 12 Q 30 3, 60 12 T 120 11 T 198 9" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+        </span><span class="cursor inline-block w-[3px] h-[0.9em] bg-[var(--brand)] ml-1 align-[-0.05em]"></span>
+      </h1>
+      <p class="block max-w-[520px] font-mono text-sm text-[var(--ink-soft)] mb-7">
+        AI &amp; Data Science student crafting intelligent web experiences with modern design and practical AI solutions.
+      </p>
+
+      <div class="flex gap-3.5 flex-wrap mt-7">
+        <a href="#projects" class="magnetic-btn font-mono text-sm px-5 py-2.5 rounded-lg border-[1.5px] border-[var(--ink)] bg-[var(--ink)] text-[var(--paper)] hover:bg-[var(--brand)] hover:border-[var(--brand)] transition-colors">View Projects</a>
+        <a href="#contact" class="magnetic-btn font-mono text-sm px-5 py-2.5 rounded-lg border-[1.5px] border-[var(--ink)] hover:border-[var(--brand)] hover:text-[var(--brand)] transition-colors">Contact Me</a>
+        <a href="resume.pdf" download
+          class="magnetic-btn inline-block border-[1.5px] border-[var(--ink)] rounded-lg bg-[var(--ink)] text-[var(--paper)] px-3.5 py-2.5 font-mono text-sm hover:bg-[var(--brand)] hover:border-[var(--brand)] transition-colors"
+          title="Download Oviya's resume (PDF)">
+          Download Resume ↓
+        </a>
+      </div>
+    </div>
+
+    <div class="relative mx-auto w-full max-w-[320px] lg:max-w-none">
+      <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 bg-white/50 border border-white/60 z-10" style="transform:translateX(-50%) rotate(-4deg);" aria-hidden="true"></div>
+      <div class="relative aspect-[4/5] rounded-2xl border-2 border-dashed border-[var(--line)] bg-[var(--surface)] overflow-hidden hover:border-[var(--brand)] transition-colors" style="transform:rotate(2deg)">
+        <img src="assets/hero-photo.jpg" alt="Oviya A." class="w-full h-full object-cover object-top">
+      </div>
+
+      <!-- pinned index card: what's on this page -->
+      <div class="absolute -top-6 -right-5 z-20 hidden sm:block" style="transform:rotate(6deg);">
+        <div class="bg-[var(--paper)] border-[1.5px] border-[var(--line)] rounded-lg shadow-lg px-4 py-3 min-w-[168px]">
+          <div class="hand-note text-lg mb-1.5" style="transform:rotate(-3deg); transform-origin:left;">what's inside →</div>
+          <ul class="font-mono text-[0.7rem] text-[var(--ink-soft)] space-y-1.5">
+            <li><a href="#about" class="hover:text-[var(--brand)] flex items-center gap-1.5">📝 about me</a></li>
+            <li><a href="#skills" class="hover:text-[var(--brand)] flex items-center gap-1.5">🛠️ skills</a></li>
+            <li><a href="#projects" class="hover:text-[var(--brand)] flex items-center gap-1.5">🚀 projects</a></li>
+            <li><a href="#achievements" class="hover:text-[var(--brand)] flex items-center gap-1.5">🏅 certifications</a></li>
+            <li><a href="#sql-challenge" class="hover:text-[var(--brand)] flex items-center gap-1.5">🧮 sql challenge</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="hand-note text-lg absolute -bottom-6 -left-3 hidden sm:block" style="transform:rotate(-4deg);" aria-hidden="true">that's really me ↑</div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5 mt-14">
+    <button type="button" data-stat="projects" class="stat-trigger text-left border-l-2 border-[var(--mustard)] pl-3 hover:pl-4 transition-all">
+      <span class="reveal-init stat-pop block font-display font-bold text-2xl">3</span>
+      <div class="font-mono text-[0.7rem] text-[var(--ink-soft)] mt-1">PROJECTS ↗</div>
+    </button>
+    <button type="button" data-stat="tech" class="stat-trigger text-left border-l-2 border-[var(--mustard)] pl-3 hover:pl-4 transition-all">
+      <span class="reveal-init stat-pop block font-display font-bold text-2xl">20+</span>
+      <div class="font-mono text-[0.7rem] text-[var(--ink-soft)] mt-1">TECHNOLOGIES ↗</div>
+    </button>
+    <button type="button" data-stat="years" class="stat-trigger text-left border-l-2 border-[var(--mustard)] pl-3 hover:pl-4 transition-all">
+      <span class="reveal-init stat-pop block font-display font-bold text-2xl">2+</span>
+      <div class="font-mono text-[0.7rem] text-[var(--ink-soft)] mt-1">YEARS LEARNING ↗</div>
+    </button>
+    <button type="button" data-stat="certs" class="stat-trigger text-left border-l-2 border-[var(--mustard)] pl-3 hover:pl-4 transition-all">
+      <span class="reveal-init stat-pop block font-display font-bold text-2xl">5</span>
+      <div class="font-mono text-[0.7rem] text-[var(--ink-soft)] mt-1">CERTIFICATIONS ↗</div>
+    </button>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section id="about" class="py-20 reveal-init">
+  <div class="max-w-[880px] mx-auto px-6">
+    <div class="sticky-tag" style="transform:rotate(1.5deg)"><span class="tape"></span>§ about</div>
+    <h2 class="font-display font-bold text-3xl mb-8">Get to know me</h2>
+    <div class="grid md:grid-cols-[1fr_1.4fr] gap-10 items-start">
+      <div class="relative aspect-square rounded-2xl overflow-hidden border-2 border-dashed border-[var(--line)] bg-[var(--surface)] select-none" id="photoSwipe">
+        <div class="flex h-full transition-transform duration-300 ease-out" id="photoTrack" style="width:200%;">
+          <div class="h-full" style="width:50%;">
+            <img src="assets/ovi2.png.jpeg"
+                 alt="Oviya"
+                 data-lightbox-src="assets/ovi2.png.jpeg"
+                 class="w-full h-full object-cover object-top">
+          </div>
+          <div class="h-full" style="width:50%;">
+            <img src="assets/about-photo-2.jpg"
+                 alt="Oviya"
+                 data-lightbox-src="assets/about-photo-2.jpg"
+                 class="w-full h-full object-cover object-top">
+          </div>
+        </div>
+
+        <!-- prev/next click zones (desktop) -->
+        <button type="button" id="photoPrev" aria-label="Show previous photo" class="group absolute inset-y-0 left-0 w-1/3 flex items-center justify-start pl-2 opacity-0 hover:opacity-100 transition-opacity focus-visible:opacity-100">
+          <span class="w-7 h-7 rounded-full bg-[var(--ink)] text-[var(--paper)] flex items-center justify-center text-sm">‹</span>
+        </button>
+        <button type="button" id="photoNext" aria-label="Show next photo" class="group absolute inset-y-0 right-0 w-1/3 flex items-center justify-end pr-2 opacity-0 hover:opacity-100 transition-opacity focus-visible:opacity-100">
+          <span class="w-7 h-7 rounded-full bg-[var(--ink)] text-[var(--paper)] flex items-center justify-center text-sm">›</span>
+        </button>
+
+        <!-- dot indicators -->
+        <div class="absolute top-3 right-3 flex gap-1.5 z-10" id="photoDots">
+          <button type="button" class="w-2 h-2 rounded-full bg-[var(--brand)] transition-opacity" data-photo-dot="0" aria-label="Show photo 1"></button>
+          <button type="button" class="w-2 h-2 rounded-full bg-[var(--ink-soft)] opacity-40 transition-opacity" data-photo-dot="1" aria-label="Show photo 2"></button>
+        </div>
+
+        <!-- swipe hint, fades out after first interaction -->
+        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 font-mono text-[0.65rem] text-[var(--ink-soft)] bg-[var(--nav-bg)] backdrop-blur-sm px-3 py-1.5 rounded-full border border-[var(--line)] pointer-events-none transition-opacity duration-300" id="photoHint">
+          <span aria-hidden="true">↔</span> swipe or click to see the other photo
+        </div>
+      </div>
+      <div>
+        <p class="font-mono text-sm text-[var(--ink-soft)] leading-relaxed">
+          I'm Oviya, a second-year B.Tech student in Artificial Intelligence &amp; Data Science at Saranathan College of Engineering. I enjoy designing premium web experiences, building AI-powered applications, and solving real-world problems through technology. My interests span frontend development, machine learning, databases, and modern UI/UX design. I'm continuously learning, creating meaningful projects, and working toward becoming a skilled AI Engineer and Full Stack Developer.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-5">
+          <span class="font-mono text-xs px-3 py-1.5 border border-[var(--line)] rounded-full bg-[var(--surface)]">Artificial Intelligence</span>
+          <span class="font-mono text-xs px-3 py-1.5 border border-[var(--line)] rounded-full bg-[var(--surface)]">Web Development</span>
+          <span class="font-mono text-xs px-3 py-1.5 border border-[var(--line)] rounded-full bg-[var(--surface)]">Machine Learning</span>
+          <span class="font-mono text-xs px-3 py-1.5 border border-[var(--line)] rounded-full bg-[var(--surface)]">UI/UX Design</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="py-20 reveal-init">
+  <div class="max-w-[880px] mx-auto px-6">
+    <div class="sticky-tag" style="transform:rotate(-1.5deg)"><span class="tape"></span>§ skills</div>
+    <h2 class="font-display font-bold text-3xl mb-8">Technologies &amp; tools</h2>
+    <div class="grid gap-5" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+      <div class="border-[1.5px] border-[var(--line)] rounded-xl p-5 bg-[var(--surface)]">
+        <h3 class="text-base font-display font-semibold mb-2.5 flex gap-2 items-center"><span class="text-lg">🎨</span> Frontend</h3>
+        <p class="font-mono text-sm text-[var(--ink-soft)]">HTML5, CSS3, JavaScript, Tailwind CSS, Responsive Design</p>
+      </div>
+      <div class="border-[1.5px] border-[var(--line)] rounded-xl p-5 bg-[var(--surface)]">
+        <h3 class="text-base font-display font-semibold mb-2.5 flex gap-2 items-center"><span class="text-lg">⚙️</span> Backend</h3>
+        <p class="font-mono text-sm text-[var(--ink-soft)]">FastAPI, REST APIs, SQLite</p>
+      </div>
+      <div class="border-[1.5px] border-[var(--line)] rounded-xl p-5 bg-[var(--surface)]">
+        <h3 class="text-base font-display font-semibold mb-2.5 flex gap-2 items-center"><span class="text-lg">💻</span> Programming</h3>
+        <p class="font-mono text-sm text-[var(--ink-soft)]">Python, Java, SQL</p>
+      </div>
+      <div class="border-[1.5px] border-[var(--line)] rounded-xl p-5 bg-[var(--surface)]">
+        <h3 class="text-base font-display font-semibold mb-2.5 flex gap-2 items-center"><span class="text-lg">🧠</span> AI / Data</h3>
+        <p class="font-mono text-sm text-[var(--ink-soft)]">Machine Learning, Scikit-learn, NumPy, Pandas, Data Analysis</p>
+      </div>
+      <div class="border-[1.5px] border-[var(--line)] rounded-xl p-5 bg-[var(--surface)]">
+        <h3 class="text-base font-display font-semibold mb-2.5 flex gap-2 items-center"><span class="text-lg">🔧</span> Tools</h3>
+        <p class="font-mono text-sm text-[var(--ink-soft)]">Git, GitHub, VS Code, Figma, Vercel, Netlify</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="py-20 reveal-init">
+  <div class="max-w-[880px] mx-auto px-6">
+    <div class="sticky-tag" style="transform:rotate(2deg)"><span class="tape"></span>§ projects</div>
+    <h2 class="font-display font-bold text-3xl mb-8">Things I've built</h2>
+
+    <p class="font-mono text-xs text-[var(--ink-soft)] mb-6 -mt-2"><span class="text-[var(--brand)] select-none">// </span>tap any card to flip it over and see screenshots — tap a screenshot itself to open it full size.</p>
+
+    <!-- PROJECT 01 — AI CareerForge (has screenshots) -->
+    <div class="project-flip-outer mb-5">
+      <div class="project-flip-inner" data-project="careerforge">
+        <div class="project-face project-face-front pinned-card border-[1.5px] border-[var(--line)] rounded-2xl p-6 bg-[var(--surface)] grid grid-cols-[auto_1fr] gap-5 items-start" style="transform:rotate(-1.2deg)">
+          <div class="font-mono text-[var(--mustard)] font-semibold text-lg">01</div>
+          <div>
+            <h3 class="text-lg font-display font-semibold">AI CareerForge</h3>
+            <p class="mt-2 font-mono text-sm text-[var(--ink-soft)]">An AI-powered career assessment platform that evaluates technical, communication, and problem-solving skills to recommend personalized career paths and generate intelligent performance reports.</p>
+            <div class="flex gap-2 flex-wrap mt-3">
+              <span class="font-mono text-xs px-2.5 py-1 bg-[var(--brand-soft)] text-[var(--brand)] rounded-md">Python</span>
+              <span class="font-mono text-xs px-2.5 py-1 bg-[var(--brand-soft)] text-[var(--brand)] rounded-md">FastAPI</span>
+              <span class="font-mono text-xs px-2.5 py-1 bg-[var(--brand-soft)] text-[var(--brand)] rounded-md">HTML/CSS/JS</span>
+              <span class="font-mono text-xs px-2.5 py-1 bg-[var(--brand-soft)] text-[var(--brand)] rounded-md">Tailwind CSS</span>
+              <span class="font-mono text-xs px-2.5 py-1 bg-[var(--brand-soft)] text-[var(--brand)] rounded-md">SQLite</span>
+            </div>
+            <a href="https://github.com/oviya-anbunepoleon/CareerForge-AI" target="_blank" rel="noopener" data-no-flip class="inline-block mt-3.5 font-mono text-sm text-[var(--brand)] hover:underline">github.com/oviya-anbunepoleon/CareerForge-AI ↗</a>
+            <div class="mt-3 font-mono text-[0.65rem] text-[var(--brand)] flex items-center gap-1.5"><span aria-hidden="true">↻</span> tap to see screenshots</div>
+          </div>
+        </div>
+        <div class="project-face project-face-back rounded-2xl p-5 bg-[var(--surface)] border-[1.5px] border-[var(--line)]">
+          <div class="font-mono text-[var(--mustard)] font-semibold text-lg mb-1">01</div>
+          <h3 class="text-lg font-display font-semibold mb-2">AI CareerForge</h3>
+          <p class="font-mono text-sm text-[var(--ink-soft)] mb-3">CareerForge AI is an AI-powered career guidance platform that evaluates users through aptitude, communication, and technical assessments to recommend suitable career paths. It provides personalized skill analysis, AI-generated feedback, readiness scores, and downloadable reports, helping students understand their strengths and prepare for future careers.</p>
+          <div class="relative aspect-[16/10] rounded-xl overflow-hidden border border-[var(--line)] bg-[var(--paper)]" data-photo-back>
+            <div class="flex h-full transition-transform duration-300 ease-out" data-photo-track style="width:200%;">
+              <div class="h-full" style="width:50%;"><img src="assets/careerforge-1.png" alt="CareerForge AI landing page" data-lightbox-src="assets/careerforge-1.png" data-no-flip class="w-full h-full object-contain bg-[var(--paper)]"></div>
+              <div class="h-full" style="width:50%;"><img src="assets/careerforge-2.png" alt="CareerForge AI login page" data-lightbox-src="assets/careerforge-2.png" data-no-flip class="w-full h-full object-contain bg-[var(--paper)]"></div>
+            </div>
+            <button type="button" data-photo-prev data-no-flip aria-label="Previous screenshot" class="absolute inset-y-0 left-0 w-1/4 flex items-center justify-start pl-1.5 opacity-0 hover:opacity-100 transition-opacity"><span class="w-6 h-6 rounded-full bg-[var(--ink)] text-[var(--paper)] flex items-center justify-center text-xs">‹</span></button>
+            <button type="button" data-photo-next data-no-flip aria-label="Next screenshot" class="absolute inset-y-0 right-0 w-1/4 flex items-center justify-end pr-1.5 opacity-0 hover:opacity-100 transition-opacity"><span class="w-6 h-6 rounded-full bg-[var(--ink)] text-[var(--paper)] flex items-center justify-center text-xs">›</span></button>
+            <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5" data-photo-dots>
+              <button type="button" data-no-flip class="w-1.5 h-1.5 rounded-full" style="background:var(--brand)"></button>
+              <button type="button" data-no-flip class="w-1.5 h-1.5 rounded-full opacity-40" style="background:var(--ink-soft)"></button>
+            </div>
+          </div>
+          <div class="mt-3 font-mono text-[0.65rem] text-[var(--brand)] flex items-center gap-1.5"><span aria-hidden="true">↻</span> tap to flip back · tap image to zoom</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 02 — Focus Desk (has screenshots) -->
+    <div class="project-flip-outer mb-5">
+      <div class="project-flip-inner" data-project="focusdesk">
+        <div class="project-face project-face-front pinned-card border-[1.5px] border-[var(--line)] rounded-2xl p-6 bg-[var(--surface)] grid grid-cols-[auto_1fr] gap-5 items-start" style="transform:rotate(1deg)">
+          <div class="font-mono text-[var(--mustard)] font-semibold text-lg">02</div>
+          <div>
+            <h3 class="text-lg font-display font-semibold">Focus Desk</h3>
+            <p class="mt-2 font-mono text-sm text-[var(--ink-soft)]">A productivity web application designed to help students organize tasks, manage study sessions, and improve focus through a clean and distraction-free workspace.</p>
+            <div class="flex gap-2 flex-wrap mt-3">
+              <span class="font-mono text-xs px-2.5 py-1 bg-[var(--brand-soft)] text-[var(--brand)] rounded-md">HTML</span>
+              <span class="font-mono text-xs px-2.5 py-1 bg-[var(--brand-soft)] text-[var(--brand)] rounded-md">CSS</span>
+              <span class="font-mono text-xs px-2.5 py-1 bg-[var(--brand-soft)] text-[var(--brand)] rounded-md">JavaScript</span>
+              <span class="font-mono text-xs px-2.5 py-1 bg-[var(--brand-soft)] text-[var(--brand)] rounded-md">Tailwind CSS</span>
+            </div>
+            <a href="https://github.com/oviya-anbunepoleon/Focus-desk-" target="_blank" rel="noopener" data-no-flip class="inline-block mt-3.5 font-mono text-sm text-[var(--brand)] hover:underline">github.com/oviya-anbunepoleon/Focus-desk- ↗</a>
+            <div class="mt-3 font-mono text-[0.65rem] text-[var(--brand)] flex items-center gap-1.5"><span aria-hidden="true">↻</span> tap to see screenshots</div>
+          </div>
+        </div>
+        <div class="project-face project-face-back rounded-2xl p-5 bg-[var(--surface)] border-[1.5px] border-[var(--line)]">
+          <div class="font-mono text-[var(--mustard)] font-semibold text-lg mb-1">02</div>
+          <h3 class="text-lg font-display font-semibold mb-2">Focus Desk</h3>
+          <p class="font-mono text-sm text-[var(--ink-soft)] mb-3">A distraction-free productivity workspace with task management and focus-session tools, built to help students stay organized and on track.</p>
+          <div class="relative aspect-[16/10] rounded-xl overflow-hidden border border-[var(--line)] bg-[var(--paper)]" data-photo-back>
+            <div class="flex h-full transition-transform duration-300 ease-out" data-photo-track style="width:200%;">
+              <div class="h-full" style="width:50%;"><img src="assets/focusdesk-1.png" alt="Focus Desk home" data-lightbox-src="assets/focusdesk-1.png" data-no-flip class="w-full h-full object-contain bg-[var(--paper)]"></div>
+              <div class="h-full" style="width:50%;"><img src="assets/focusdesk-2.png" alt="Focus Desk task manager" data-lightbox-src="assets/focusdesk-2.png" data-no-flip class="w-full h-full object-contain bg-[var(--paper)]"></div>
+            </div>
+            <button type="button" data-photo-prev data-no-flip aria-label="Previous screenshot" class="absolute inset-y-0 left-0 w-1/4 flex items-center justify-start pl-1.5 opacity-0 hover:opacity-100 transition-opacity"><span class="w-6 h-6 rounded-full bg-[var(--ink)] text-[var(--paper)] flex items-center justify-center text-xs">‹</span></button>
+            <button type="button" data-photo-next data-no-flip aria-label="Next screenshot" class="absolute inset-y-0 right-0 w-1/4 flex items-center justify-end pr-1.5 opacity-0 hover:opacity-100 transition-opacity"><span class="w-6 h-6 rounded-full bg-[var(--ink)] text-[var(--paper)] flex items-center justify-center text-xs">›</span></button>
+            <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5" data-photo-dots>
+              <button type="button" data-no-flip class="w-1.5 h-1.5 rounded-full" style="background:var(--brand)"></button>
+              <button type="button" data-no-flip class="w-1.5 h-1.5 rounded-full opacity-40" style="background:var(--ink-soft)"></button>
+            </div>
+          </div>
+          <div class="mt-3 font-mono text-[0.65rem] text-[var(--brand)] flex items-center gap-1.5"><span aria-hidden="true">↻</span> tap to flip back · tap image to zoom</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 03 — Article Website (has screenshots) -->
+    <div class="project-flip-outer mb-5">
+      <div class="project-flip-inner" data-project="article">
+        <div class="project-face project-face-front pinned-card border-[1.5px] border-[var(--line)] rounded-2xl p-6 bg-[var(--surface)] grid grid-cols-[auto_1fr] gap-5 items-start" style="transform:rotate(-0.8deg)">
+          <div class="font-mono text-[var(--mustard)] font-semibold text-lg">03</div>
+          <div>
+            <h3 class="text-lg font-display font-semibold">Article Website</h3>
+            <p class="mt-2 font-mono text-sm text-[var(--ink-soft)]">A responsive blogging platform featuring a clean reading experience, modern layouts, and optimized performance across devices.</p>
+            <div class="flex gap-2 flex-wrap mt-3">
+              <span class="font-mono text-xs px-2.5 py-1 bg-[var(--brand-soft)] text-[var(--brand)] rounded-md">HTML</span>
+              <span class="font-mono text-xs px-2.5 py-1 bg-[var(--brand-soft)] text-[var(--brand)] rounded-md">CSS</span>
+              <span class="font-mono text-xs px-2.5 py-1 bg-[var(--brand-soft)] text-[var(--brand)] rounded-md">JavaScript</span>
+            </div>
+            <a href="https://github.com/oviya-anbunepoleon/oviya-article" target="_blank" rel="noopener" data-no-flip class="inline-block mt-3.5 font-mono text-sm text-[var(--brand)] hover:underline">github.com/oviya-anbunepoleon/oviya-article ↗</a>
+            <div class="mt-3 font-mono text-[0.65rem] text-[var(--brand)] flex items-center gap-1.5"><span aria-hidden="true">↻</span> tap to see screenshots</div>
+          </div>
+        </div>
+        <div class="project-face project-face-back rounded-2xl p-5 bg-[var(--surface)] border-[1.5px] border-[var(--line)]">
+          <div class="font-mono text-[var(--mustard)] font-semibold text-lg mb-1">03</div>
+          <h3 class="text-lg font-display font-semibold mb-2">Article Website</h3>
+          <p class="font-mono text-sm text-[var(--ink-soft)] mb-3">A responsive educational article platform that delivers well-organized and informative content through a clean, user-friendly interface, ensuring an engaging reading experience across all devices.</p>
+          <div class="relative aspect-[16/10] rounded-xl overflow-hidden border border-[var(--line)] bg-[var(--paper)]" data-photo-back>
+            <div class="flex h-full transition-transform duration-300 ease-out" data-photo-track style="width:200%;">
+              <div class="h-full" style="width:50%;"><img src="assets/article-1.png" alt="Article website hero section" data-lightbox-src="assets/article-1.png" data-no-flip class="w-full h-full object-contain bg-[var(--paper)]"></div>
+              <div class="h-full" style="width:50%;"><img src="assets/article-2.png" alt="Article website closing section" data-lightbox-src="assets/article-2.png" data-no-flip class="w-full h-full object-contain bg-[var(--paper)]"></div>
+            </div>
+            <button type="button" data-photo-prev data-no-flip aria-label="Previous screenshot" class="absolute inset-y-0 left-0 w-1/4 flex items-center justify-start pl-1.5 opacity-0 hover:opacity-100 transition-opacity"><span class="w-6 h-6 rounded-full bg-[var(--ink)] text-[var(--paper)] flex items-center justify-center text-xs">‹</span></button>
+            <button type="button" data-photo-next data-no-flip aria-label="Next screenshot" class="absolute inset-y-0 right-0 w-1/4 flex items-center justify-end pr-1.5 opacity-0 hover:opacity-100 transition-opacity"><span class="w-6 h-6 rounded-full bg-[var(--ink)] text-[var(--paper)] flex items-center justify-center text-xs">›</span></button>
+            <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5" data-photo-dots>
+              <button type="button" data-no-flip class="w-1.5 h-1.5 rounded-full" style="background:var(--brand)"></button>
+              <button type="button" data-no-flip class="w-1.5 h-1.5 rounded-full opacity-40" style="background:var(--ink-soft)"></button>
+            </div>
+          </div>
+          <div class="mt-3 font-mono text-[0.65rem] text-[var(--brand)] flex items-center gap-1.5"><span aria-hidden="true">↻</span> tap to flip back · tap image to zoom</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="py-20 reveal-init">
+  <div class="max-w-[880px] mx-auto px-6">
+    <div class="sticky-tag" style="transform:rotate(-2deg)"><span class="tape"></span>§ experience</div>
+    <h2 class="font-display font-bold text-3xl mb-8">Professional experience</h2>
+
+    <div class="grid grid-cols-[130px_1fr] gap-5 py-4.5 border-t border-b border-[var(--line)]">
+      <div class="font-mono text-xs text-[var(--ink-soft)]">Jun 2026 – Sep 2026</div>
+      <div>
+        <h3 class="text-base font-display font-semibold">Artificial Intelligence Intern</h3>
+        <div class="font-mono text-sm text-[var(--brand)] mt-1 mb-2">InternsForge Skill India Pvt. Ltd. · Bengaluru (Remote)</div>
+        <p class="font-mono text-sm text-[var(--ink-soft)]">A 3-month AI internship offered by InternsForge Skill India Pvt. Ltd., focused on applying AI concepts to real project work as part of the company's Startup India initiative.</p>
+        <a href="assets/internsforge-offer-letter.pdf" target="_blank" rel="noopener" data-no-flip class="inline-flex items-center gap-2 mt-3.5 font-mono text-sm px-4 py-2 rounded-lg border-[1.5px] border-[var(--brand)] text-[var(--brand)] bg-[var(--brand-soft)] hover:bg-[var(--brand)] hover:text-[var(--paper)] transition-colors">📄 View appointment letter (PDF) ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="py-20 reveal-init">
+  <div class="max-w-[880px] mx-auto px-6">
+    <div class="sticky-tag" style="transform:rotate(1.5deg)"><span class="tape"></span>§ education</div>
+    <h2 class="font-display font-bold text-3xl mb-8">Academic journey</h2>
+    <div class="grid grid-cols-[130px_1fr] gap-5 py-4.5 border-t border-b border-[var(--line)]">
+      <div class="font-mono text-xs text-[var(--ink-soft)]">2025 – 2029</div>
+      <div>
+        <h3 class="text-base font-display font-semibold">B.Tech, Artificial Intelligence &amp; Data Science</h3>
+        <div class="font-mono text-sm text-[var(--brand)] mt-1 mb-2">Saranathan College of Engineering · CGPA 8.67</div>
+        <p class="font-mono text-sm text-[var(--ink-soft)]">Relevant coursework: Data Structures, Object-Oriented Programming, Database Management Systems, Artificial Intelligence, Probability &amp; Statistics.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements" class="py-20 reveal-init">
+  <div class="max-w-[880px] mx-auto px-6">
+    <div class="sticky-tag" style="transform:rotate(-1.5deg)"><span class="tape"></span>§ achievements</div>
+    <h2 class="font-display font-bold text-3xl mb-8">Milestones &amp; certifications</h2>
+    <div class="grid gap-5" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+      <div class="border-2 border-dashed border-[var(--line)] rounded-xl p-5 bg-[var(--surface)]">
+        <span class="text-2xl block mb-2.5">🏆</span>
+        <p class="font-mono text-sm text-[var(--ink-soft)]">Hackathon Finalist</p>
+      </div>
+      <div class="border-2 border-dashed border-[var(--line)] rounded-xl p-5 bg-[var(--surface)]">
+        <span class="text-2xl block mb-2.5">📜</span>
+        <p class="font-mono text-sm text-[var(--ink-soft)]">FreeCodeCamp Responsive Web Design Certification</p>
+      </div>
+      <div class="border-2 border-dashed border-[var(--line)] rounded-xl p-5 bg-[var(--surface)]">
+        <span class="text-2xl block mb-2.5">🎨</span>
+        <p class="font-mono text-sm text-[var(--ink-soft)]">BrandMonk Academy Workshop Certificate</p>
+      </div>
+      <div class="border-2 border-dashed border-[var(--line)] rounded-xl p-5 bg-[var(--surface)]">
+        <span class="text-2xl block mb-2.5">💻</span>
+        <p class="font-mono text-sm text-[var(--ink-soft)]">Built and deployed multiple full-stack web applications</p>
+      </div>
+      <div class="border-2 border-dashed border-[var(--line)] rounded-xl p-5 bg-[var(--surface)]">
+        <span class="text-2xl block mb-2.5">🌐</span>
+        <p class="font-mono text-sm text-[var(--ink-soft)]">Active GitHub contributor</p>
+      </div>
+    </div>
+
+    <!-- CERTIFICATE / DOCUMENT FLIP GALLERY -->
+    <div class="mt-10">
+      <div class="hand-note text-lg mb-3" style="transform:rotate(-2deg); transform-origin:left;">tap or swipe to flip through the proof →</div>
+      <div class="grid md:grid-cols-[300px_1fr] gap-8 items-center">
+        <div class="relative mx-auto w-full max-w-[300px]" id="certFlipOuter" style="perspective:1400px;">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-14 h-5 bg-white/50 border border-white/60 z-10" style="transform:translateX(-50%) rotate(-4deg);" aria-hidden="true"></div>
+          <div class="relative aspect-[4/3] rounded-2xl border-2 border-dashed border-[var(--line)] bg-[var(--surface)] select-none cursor-pointer overflow-hidden" id="certFlipCard" style="transform-style:preserve-3d;">
+            <div class="absolute inset-0 flex items-center justify-center font-mono text-sm text-[var(--ink-soft)] text-center p-6" id="certFlipContent">
+              <!-- filled in by JS -->
+            </div>
+          </div>
+
+          <button type="button" id="certPrev" aria-label="Show previous document" class="absolute top-1/2 -left-3 -translate-y-1/2 w-8 h-8 rounded-full bg-[var(--ink)] text-[var(--paper)] flex items-center justify-center text-sm shadow-md hover:bg-[var(--brand)] transition-colors">‹</button>
+          <button type="button" id="certNext" aria-label="Show next document" class="absolute top-1/2 -right-3 -translate-y-1/2 w-8 h-8 rounded-full bg-[var(--ink)] text-[var(--paper)] flex items-center justify-center text-sm shadow-md hover:bg-[var(--brand)] transition-colors">›</button>
+
+          <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10" id="certDots"></div>
+        </div>
+
+        <div>
+          <div class="font-mono text-xs text-[var(--brand)] mb-1.5" id="certLabel">certificate 1 / 5</div>
+          <h3 class="font-display font-semibold text-lg mb-2" id="certTitle">Document title</h3>
+          <p class="font-mono text-sm text-[var(--ink-soft)]" id="certDesc">Description of this certificate or document.</p>
+          <p class="font-mono text-xs text-[var(--ink-soft)] mt-4"><span class="text-[var(--brand)] select-none">// </span>tap the card image to view it full size.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SQL CHALLENGE -->
+<section id="sql-challenge" class="py-20 reveal-init">
+  <div class="max-w-[880px] mx-auto px-6">
+    <div class="sticky-tag" style="transform:rotate(-1.5deg)"><span class="tape"></span>§ sql challenge</div>
+    <h2 class="font-display font-bold text-3xl mb-3 flex items-center gap-3 flex-wrap">Try one of my SQL problems <span class="hand-note text-lg" style="transform:rotate(-4deg);">try it, i dare you →</span></h2>
+    <p class="font-mono text-sm text-[var(--ink-soft)] mb-8"><span class="text-[var(--brand)] select-none">// </span>A real query engine running in your browser — write SQL, hit run, get real results. These 3 are placeholders; swap the problem text, schema, and solution for your own solved Code360 problems.</p>
+
+    <div class="border-[1.5px] border-[var(--line)] rounded-2xl p-6 bg-[var(--surface)]" id="sqlChallengeCard">
+      <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
+        <div class="flex items-center gap-3">
+          <span class="font-mono text-xs px-2.5 py-1 bg-[var(--brand-soft)] text-[var(--brand)] rounded-md" id="sqlDifficulty">difficulty</span>
+          <span class="font-mono text-xs text-[var(--ink-soft)]" id="sqlProgress">1 / 3</span>
+        </div>
+        <div class="flex gap-2">
+          <button id="sqlPrev" class="font-mono text-xs px-3 py-1.5 rounded-md border border-[var(--line)] hover:border-[var(--brand)] hover:text-[var(--brand)] transition-colors">← prev</button>
+          <button id="sqlNext" class="font-mono text-xs px-3 py-1.5 rounded-md border border-[var(--line)] hover:border-[var(--brand)] hover:text-[var(--brand)] transition-colors">next →</button>
+        </div>
+      </div>
+
+      <h3 class="font-display font-semibold text-lg mb-2" id="sqlTitle">Problem title</h3>
+      <p class="block border-2 border-dashed border-[var(--line)] rounded-lg bg-[var(--surface)] px-3.5 py-2.5 font-mono text-sm text-[var(--ink-soft)] mb-4" id="sqlStatement"></p>
+
+      <div class="mb-4">
+        <div class="font-mono text-xs text-[var(--ink-soft)] mb-1.5">sample table</div>
+        <div class="overflow-x-auto border border-[var(--line)] rounded-lg" id="sqlSchemaPreview"></div>
+      </div>
+
+      <div class="mb-3">
+        <div class="font-mono text-xs text-[var(--ink-soft)] mb-1.5">your query</div>
+        <textarea id="sqlInput" rows="4" spellcheck="false" class="w-full border-2 border-[var(--line)] rounded-lg bg-[var(--paper)] px-3.5 py-2.5 font-mono text-sm text-[var(--ink)] focus:border-[var(--brand)] focus:outline-none transition-colors" placeholder="SELECT ..."></textarea>
+      </div>
+
+      <div class="flex gap-3 flex-wrap items-center mb-4">
+        <button id="sqlRun" class="magnetic-btn font-mono text-sm px-5 py-2.5 rounded-lg border-[1.5px] border-[var(--ink)] bg-[var(--ink)] text-[var(--paper)] hover:bg-[var(--brand)] hover:border-[var(--brand)] transition-colors">Run Query ▸</button>
+        <button id="sqlReveal" class="font-mono text-sm px-5 py-2.5 rounded-lg border-[1.5px] border-dashed border-[var(--line)] text-[var(--ink-soft)] hover:border-[var(--brand)] hover:text-[var(--brand)] transition-colors">Show Answer</button>
+        <span class="font-mono text-xs text-[var(--ink-soft)]" id="sqlEngineStatus">loading engine…</span>
+      </div>
+
+      <div id="sqlResultWrap" class="hidden">
+        <div class="font-mono text-xs text-[var(--ink-soft)] mb-1.5">result</div>
+        <div class="overflow-x-auto border border-[var(--line)] rounded-lg" id="sqlResult"></div>
+      </div>
+
+      <div id="sqlPlanWrap" class="hidden mt-4">
+        <div class="font-mono text-xs text-[var(--ink-soft)] mb-1.5 flex items-center gap-1.5">
+          <span>how this query actually executes</span>
+          <span class="font-mono text-[0.65rem] text-[var(--brand)]">// EXPLAIN QUERY PLAN</span>
+        </div>
+        <div class="overflow-x-auto border border-dashed border-[var(--line)] rounded-lg bg-[var(--brand-soft)]" id="sqlPlan"></div>
+      </div>
+
+      <div id="sqlAnswerWrap" class="hidden mt-4 border-t border-[var(--line)] pt-4">
+        <div class="font-mono text-xs text-[var(--brand)] mb-1.5">model solution</div>
+        <pre class="font-mono text-sm bg-[var(--brand-soft)] text-[var(--ink)] rounded-lg p-3 overflow-x-auto" id="sqlAnswerQuery"></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-20 reveal-init">
+  <div class="max-w-[880px] mx-auto px-6">
+    <div class="sticky-tag" style="transform:rotate(2deg)"><span class="tape"></span>§ contact</div>
+    <h2 class="font-display font-bold text-3xl mb-8">Get in touch</h2>
+    <div class="grid md:grid-cols-2 gap-10">
+      <div>
+        <p class="block border-2 border-dashed border-[var(--line)] rounded-lg bg-[var(--surface)] px-3.5 py-2.5 font-mono text-sm text-[var(--ink-soft)] hover:border-[var(--brand)] hover:bg-[var(--brand-soft)] transition-colors mb-5"><span class="text-[var(--brand)] select-none">// </span>Have a project in mind or want to collaborate? Say why here.</p>
+
+        <!-- Real contact form. Replace YOUR_FORM_ID below with your own Formspree endpoint
+             (sign up free at https://formspree.io, create a form, copy the ID) so submissions
+             actually land in your inbox. Until then this form will not deliver anywhere. -->
+        <form id="contactForm" action="https://formsubmit.co/ajax/hariovi10@gmail.com" method="POST" class="grid gap-3">
+          <input type="hidden" name="_subject" value="New message from your portfolio site">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="text" name="name" required placeholder="Your name"
+            class="w-full border-2 border-dashed border-[var(--line)] rounded-lg bg-[var(--surface)] px-3.5 py-2.5 font-mono text-sm text-[var(--ink)] placeholder:text-[var(--ink-soft)] focus:border-[var(--brand)] focus:bg-[var(--brand-soft)] focus:outline-none transition-colors">
+          <input type="email" name="email" required placeholder="Your email"
+            class="w-full border-2 border-dashed border-[var(--line)] rounded-lg bg-[var(--surface)] px-3.5 py-2.5 font-mono text-sm text-[var(--ink)] placeholder:text-[var(--ink-soft)] focus:border-[var(--brand)] focus:bg-[var(--brand-soft)] focus:outline-none transition-colors">
+          <textarea name="message" required rows="4" placeholder="What's up?"
+            class="w-full border-2 border-dashed border-[var(--line)] rounded-lg bg-[var(--surface)] px-3.5 py-2.5 font-mono text-sm text-[var(--ink)] placeholder:text-[var(--ink-soft)] focus:border-[var(--brand)] focus:bg-[var(--brand-soft)] focus:outline-none transition-colors resize-none"></textarea>
+          <button type="submit"
+            class="magnetic-btn font-mono text-sm px-5 py-2.5 rounded-lg border-[1.5px] border-[var(--ink)] bg-[var(--ink)] text-[var(--paper)] hover:bg-[var(--brand)] hover:border-[var(--brand)] transition-colors w-fit">
+            Send Message
+          </button>
+          <p id="formStatus" class="font-mono text-xs text-[var(--ink-soft)] min-h-[1em]"></p>
+        </form>
+      </div>
+      <div>
+        <div class="flex gap-3 items-baseline mb-4 font-mono text-sm">
+          <span class="text-[var(--ink-soft)] min-w-[70px]">Email</span>
+          <span class="copyable border border-[var(--line)] rounded-lg bg-[var(--surface)] px-2.5 py-1 hover:border-[var(--brand)] hover:text-[var(--brand)] transition-colors">hariovi10@gmail.com</span>
+        </div>
+        <div class="flex gap-3 items-baseline mb-4 font-mono text-sm">
+          <span class="text-[var(--ink-soft)] min-w-[70px]">Phone</span>
+          <span class="copyable border border-[var(--line)] rounded-lg bg-[var(--surface)] px-2.5 py-1 hover:border-[var(--brand)] hover:text-[var(--brand)] transition-colors">+91 883843293</span>
+        </div>
+        <div class="flex gap-3 items-baseline mb-4 font-mono text-sm">
+          <span class="text-[var(--ink-soft)] min-w-[70px]">LinkedIn</span>
+          <a href="https://www.linkedin.com/in/oviya-anbu-nepoleon-34145139a" target="_blank" rel="noopener" class="border border-[var(--line)] rounded-lg bg-[var(--surface)] px-2.5 py-1 hover:border-[var(--brand)] hover:text-[var(--brand)] transition-colors">linkedin.com/in/oviya-anbu-nepoleon-34145139a</a>
+        </div>
+        <div class="flex gap-3 items-baseline mb-4 font-mono text-sm">
+          <span class="text-[var(--ink-soft)] min-w-[70px]">GitHub</span>
+          <a href="https://github.com/oviya-anbunepoleon" target="_blank" rel="noopener" class="border border-[var(--line)] rounded-lg bg-[var(--surface)] px-2.5 py-1 hover:border-[var(--brand)] hover:text-[var(--brand)] transition-colors">github.com/oviya-anbunepoleon</a>
+        </div>
+        <div class="flex gap-3 items-baseline mb-4 font-mono text-sm">
+          <span class="text-[var(--ink-soft)] min-w-[70px]">Location</span>
+          <span class="border border-[var(--line)] rounded-lg bg-[var(--surface)] px-2.5 py-1">Tiruchirappalli, Tamil Nadu, India</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="py-14 text-center">
+  <div class="max-w-[880px] mx-auto px-6">
+    <div class="font-display text-xl mb-2.5">LET'S BUILD SOMETHING GREAT</div>
+    <p class="inline-block max-w-[340px] mx-auto mt-3.5 font-mono text-sm text-[var(--ink-soft)]">Where thoughtful design meets intelligent engineering.</p>
+    <p class="font-mono text-xs text-[var(--ink-soft)] mt-6">© 2026 Oviya A. Built with code.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canHover = window.matchMedia('(hover: hover)').matches;
+  if (reduceMotion || !canHover) return;
+
+  var glow = document.getElementById('cursorGlow');
+  var dot = document.getElementById('cursorDot');
+
+  var mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+  var glowX = mouseX, glowY = mouseY;
+
+  window.addEventListener('mousemove', function(e){
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  }, { passive: true });
+
+  document.addEventListener('mousedown', function(){ dot.classList.add('is-active'); });
+  document.addEventListener('mouseup', function(){ dot.classList.remove('is-active'); });
+
+  function tick(){
+    glowX += (mouseX - glowX) * 0.16;
+    glowY += (mouseY - glowY) * 0.16;
+    glow.style.transform = 'translate3d(' + glowX + 'px,' + glowY + 'px,0)';
+    dot.style.transform = 'translate3d(' + mouseX + 'px,' + mouseY + 'px,0)';
+
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+
+(function(){
+  var picker = document.getElementById('themePicker');
+  if (!picker) return;
+  var buttons = picker.querySelectorAll('[data-theme-btn]');
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var theme = btn.getAttribute('data-theme-btn');
+      if (theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+      buttons.forEach(function(b){ b.classList.remove('is-active'); });
+      btn.classList.add('is-active');
+    });
+  });
+})();
+
+/* ===== EXTRA: scroll progress bar ===== */
+(function(){
+  var bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  function update(){
+    var h = document.documentElement;
+    var scrolled = h.scrollTop;
+    var max = h.scrollHeight - h.clientHeight;
+    var pct = max > 0 ? (scrolled / max) * 100 : 0;
+    bar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+
+/* ===== EXTRA: reveal sections + stat pop as they scroll into view ===== */
+(function(){
+  var targets = document.querySelectorAll('.reveal-init');
+  if (!targets.length) return;
+  if (!('IntersectionObserver' in window)) {
+    targets.forEach(function(t){ t.classList.add('in-view'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+  targets.forEach(function(t){ io.observe(t); });
+})();
+
+/* ===== EXTRA: typewriter effect on select section headings, as they scroll into view ===== */
+(function(){
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Only the big, clean single-line headings — not the SQL heading (has extra nested elements).
+  var targets = document.querySelectorAll('#about h2, #skills h2, #projects h2, #experience h2, #education h2, #achievements h2, #contact h2');
+  if (!targets.length || reduceMotion || !('IntersectionObserver' in window)) return;
+
+  function typeIt(el){
+    var full = el.textContent;
+    el.textContent = '';
+    var cursor = document.createElement('span');
+    cursor.className = 'type-cursor';
+    cursor.textContent = '|';
+    el.appendChild(cursor);
+    var i = 0;
+    var interval = setInterval(function(){
+      el.textContent = full.slice(0, i);
+      el.appendChild(cursor);
+      i++;
+      if (i > full.length) {
+        clearInterval(interval);
+        setTimeout(function(){ cursor.remove(); }, 400);
+      }
+    }, 28);
+  }
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        typeIt(entry.target);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  targets.forEach(function(t){ io.observe(t); });
+})();
+
+/* ===== EXTRA: magnetic hover on CTA buttons ===== */
+(function(){
+  var canHover = window.matchMedia('(hover: hover)').matches;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!canHover || reduceMotion) return;
+  document.querySelectorAll('.magnetic-btn').forEach(function(btn){
+    btn.addEventListener('mousemove', function(e){
+      var r = btn.getBoundingClientRect();
+      var x = e.clientX - r.left - r.width / 2;
+      var y = e.clientY - r.top - r.height / 2;
+      btn.style.transform = 'translate(' + (x * 0.25) + 'px,' + (y * 0.25) + 'px)';
+    });
+    btn.addEventListener('mouseleave', function(){
+      btn.style.transform = 'translate(0,0)';
+    });
+  });
+})();
+
+/* ===== EXTRA: spotlight highlight following cursor on project cards ===== */
+(function(){
+  var canHover = window.matchMedia('(hover: hover)').matches;
+  if (!canHover) return;
+  document.querySelectorAll('.pinned-card').forEach(function(card){
+    card.addEventListener('mousemove', function(e){
+      var r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
+})();
+
+/* ===== EXTRA: full-size image lightbox — click any tagged screenshot to zoom ===== */
+(function(){
+  var overlay = document.getElementById('lightboxOverlay');
+  var img = document.getElementById('lightboxImg');
+  var closeBtn = document.getElementById('lightboxClose');
+  if (!overlay || !img) return;
+
+  function open(src, alt){
+    img.src = src;
+    img.alt = alt || '';
+    overlay.classList.add('is-visible');
+  }
+  function close(){
+    overlay.classList.remove('is-visible');
+    img.src = '';
+  }
+
+  document.addEventListener('click', function(e){
+    var trigger = e.target.closest('[data-lightbox-src]');
+    if (trigger) {
+      e.preventDefault();
+      e.stopPropagation();
+      open(trigger.getAttribute('data-lightbox-src'), trigger.getAttribute('alt'));
+    }
+  });
+
+  overlay.addEventListener('click', function(e){
+    if (e.target === overlay) close();
+  });
+  closeBtn.addEventListener('click', close);
+  window.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') close();
+  });
+})();
+
+/* ===== EXTRA: stat detail popups — Projects / Technologies / Years / Certifications ===== */
+(function(){
+  var overlay = document.getElementById('statModalOverlay');
+  var closeBtn = document.getElementById('statModalClose');
+  var eyebrow = document.getElementById('statModalEyebrow');
+  var titleEl = document.getElementById('statModalTitle');
+  var listEl = document.getElementById('statModalList');
+  if (!overlay) return;
+
+  function openModal(eyebrowText, title, itemsHtml){
+    eyebrow.textContent = eyebrowText;
+    titleEl.textContent = title;
+    listEl.innerHTML = itemsHtml;
+    overlay.classList.add('is-visible');
+  }
+  function closeModal(){ overlay.classList.remove('is-visible'); }
+  overlay.addEventListener('click', function(e){ if (e.target === overlay) closeModal(); });
+  closeBtn.addEventListener('click', closeModal);
+  window.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeModal(); });
+
+  function buildProjects(){
+    var html = '';
+    document.querySelectorAll('.project-flip-inner').forEach(function(card){
+      var front = card.querySelector('.project-face-front');
+      var title = front.querySelector('h3').textContent;
+      var desc = front.querySelector('p').textContent;
+      var tags = Array.prototype.map.call(front.querySelectorAll('.flex.gap-2.flex-wrap span'), function(s){ return s.textContent; });
+      html += '<li><b>' + title + '</b>' + desc + '<div class="stat-modal-tags">' +
+        tags.map(function(t){ return '<span>' + t + '</span>'; }).join('') + '</div></li>';
+    });
+    return html;
+  }
+
+  function buildTech(){
+    var html = '';
+    var total = 0;
+    document.querySelectorAll('#skills [class*="border-[1.5px]"]').forEach(function(card){
+      var h3 = card.querySelector('h3');
+      var p = card.querySelector('p');
+      if (!h3 || !p) return;
+      var items = p.textContent.split(',').map(function(s){ return s.trim(); }).filter(Boolean);
+      total += items.length;
+      html += '<li><b>' + h3.textContent.trim() + '</b>' + items.join(' · ') + '</li>';
+    });
+    var techStat = document.querySelector('[data-stat="tech"] .stat-pop');
+    if (techStat) techStat.textContent = total + '+';
+    return html;
+  }
+
+  function buildYears(){
+    // Set this to the year Oviya actually started learning to code / AI —
+    // the hero stat and this popup both update automatically from it.
+    var startYear = 2024;
+    var now = new Date();
+    var years = Math.floor((now.getFullYear() + (now.getMonth() + 1) / 12) - startYear);
+    var yearsStat = document.querySelector('[data-stat="years"] .stat-pop');
+    if (yearsStat) yearsStat.textContent = years + '+';
+    return '<li><b>' + years + '+ years learning</b>Currently in 2nd year of B.Tech Artificial Intelligence &amp; Data Science (2025–2029) at Saranathan College of Engineering, after starting to learn programming independently in ' + startYear + '.</li>';
+  }
+
+  function buildCerts(){
+    var html = '';
+    document.querySelectorAll('#achievements [class*="border-2 border-dashed"]').forEach(function(card){
+      var p = card.querySelector('p');
+      if (!p) return;
+      html += '<li>' + p.textContent.trim() + '</li>';
+    });
+    return html;
+  }
+
+  document.querySelectorAll('.stat-trigger').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var kind = btn.getAttribute('data-stat');
+      if (kind === 'projects') openModal('projects', "Things I've built", buildProjects());
+      if (kind === 'tech') openModal('technologies', 'Full stack', buildTech());
+      if (kind === 'years') openModal('journey', 'Years learning', buildYears());
+      if (kind === 'certs') openModal('proof', 'Certifications & milestones', buildCerts());
+    });
+  });
+})();
+
+/* ===== EXTRA: two-photo swipe/click carousel in About section ===== */
+(function(){
+  var wrap = document.getElementById('photoSwipe');
+  var track = document.getElementById('photoTrack');
+  var hint = document.getElementById('photoHint');
+  var prevBtn = document.getElementById('photoPrev');
+  var nextBtn = document.getElementById('photoNext');
+  var dots = wrap ? wrap.querySelectorAll('[data-photo-dot]') : [];
+  if (!wrap || !track) return;
+
+  var count = 2;
+  var index = 0;
+  var hintDismissed = false;
+
+  function render(){
+    track.style.transform = 'translateX(-' + (index * (100 / count)) + '%)';
+    dots.forEach(function(d, i){
+      d.classList.toggle('opacity-40', i !== index);
+      d.style.background = i === index ? 'var(--brand)' : 'var(--ink-soft)';
+    });
+  }
+
+  function dismissHint(){
+    if (hintDismissed || !hint) return;
+    hintDismissed = true;
+    hint.style.opacity = '0';
+  }
+
+  function goTo(i){
+    index = ((i % count) + count) % count;
+    dismissHint();
+    render();
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', function(){ goTo(index - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function(){ goTo(index + 1); });
+  dots.forEach(function(d, i){
+    d.addEventListener('click', function(){ goTo(i); });
+  });
+
+  // Clicking the photo itself (outside the prev/next zones) also advances to the next one,
+  // unless the click was on the image (which opens the lightbox instead).
+  wrap.addEventListener('click', function(e){
+    if (prevBtn.contains(e.target) || nextBtn.contains(e.target) || wrap.querySelector('#photoDots').contains(e.target)) return;
+    if (e.target.closest('[data-lightbox-src]')) return;
+    goTo(index + 1);
+  });
+
+  // Touch swipe support.
+  var touchStartX = null;
+  wrap.addEventListener('touchstart', function(e){
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  wrap.addEventListener('touchend', function(e){
+    if (touchStartX === null) return;
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    var threshold = 40;
+    if (dx > threshold) goTo(index - 1);
+    else if (dx < -threshold) goTo(index + 1);
+    touchStartX = null;
+  }, { passive: true });
+
+  // Auto-fade the hint after a few seconds even without interaction.
+  setTimeout(dismissHint, 4500);
+
+  render();
+})();
+
+/* ===== EXTRA: click-to-copy contact details ===== */
+(function(){
+  var toast = document.getElementById('copyToast');
+  var toastTimer;
+  document.querySelectorAll('.copyable').forEach(function(el){
+    el.addEventListener('click', function(){
+      var text = el.textContent.trim();
+      var show = function(){
+        if (!toast) return;
+        toast.classList.add('is-visible');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function(){ toast.classList.remove('is-visible'); }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(show).catch(show);
+      } else {
+        show();
+      }
+    });
+  });
+})();
+
+/* ===== EXTRA: AI avatar greeting — typewriter + real text-to-speech (female voice) ===== */
+(function(){
+  var widget = document.getElementById('aiAvatarWidget');
+  var face = document.getElementById('aiAvatarFace');
+  var textEl = document.getElementById('aiAvatarText');
+  var cursorEl = document.getElementById('aiAvatarCursor');
+  var speakBtn = document.getElementById('aiAvatarSpeak');
+  var closeBtn = document.getElementById('aiAvatarClose');
+  if (!widget) return;
+
+  var greeting = "Hey, welcome! I'm Oviya — a second-year student at Saranathan College of Engineering, studying Artificial Intelligence. Take a look around!";
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var typed = false;
+
+  function typeGreeting(){
+    if (typed) return;
+    typed = true;
+    if (reduceMotion) {
+      textEl.textContent = greeting;
+      cursorEl.style.display = 'none';
+      return;
+    }
+    var i = 0;
+    var interval = setInterval(function(){
+      textEl.textContent = greeting.slice(0, i);
+      i++;
+      if (i > greeting.length) {
+        clearInterval(interval);
+        cursorEl.style.opacity = '.4';
+      }
+    }, 26);
+  }
+
+  /* Pick the best-sounding female voice available in the browser.
+     Voices load asynchronously in some browsers, so we cache the list
+     once populated and re-select whenever voiceschanged fires. */
+  var cachedVoices = [];
+  var femaleNameHints = ['female','woman','girl','samantha','victoria','zira','susan','karen','moira','tessa','fiona','fiona','allison','ava','samantha','serena','joanna','salli','kimberly','kendra','emma','amy','aria','jenny','libby','sonia','natasha','google uk english female','google us english'];
+
+  function pickFemaleVoice(voices){
+    if (!voices || !voices.length) return null;
+    var byNameEn = voices.filter(function(v){
+      var n = v.name.toLowerCase();
+      return /^en/i.test(v.lang) && femaleNameHints.some(function(hint){ return n.indexOf(hint) !== -1; });
+    });
+    if (byNameEn.length) return byNameEn[0];
+
+    var byNameAny = voices.filter(function(v){
+      var n = v.name.toLowerCase();
+      return femaleNameHints.some(function(hint){ return n.indexOf(hint) !== -1; });
+    });
+    if (byNameAny.length) return byNameAny[0];
+
+    var en = voices.filter(function(v){ return /^en/i.test(v.lang); });
+    if (en.length) return en[0];
+
+    return voices[0];
+  }
+
+  function refreshVoices(){
+    if ('speechSynthesis' in window) {
+      cachedVoices = window.speechSynthesis.getVoices();
+    }
+  }
+  refreshVoices();
+  if ('speechSynthesis' in window && typeof window.speechSynthesis.addEventListener === 'function') {
+    window.speechSynthesis.addEventListener('voiceschanged', refreshVoices);
+  }
+
+  function speak(){
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    var utter = new SpeechSynthesisUtterance(greeting);
+    var voice = pickFemaleVoice(cachedVoices.length ? cachedVoices : window.speechSynthesis.getVoices());
+    if (voice) utter.voice = voice;
+    utter.rate = 1;
+    utter.pitch = 1.25;
+    face.classList.add('is-talking');
+    utter.onend = function(){ face.classList.remove('is-talking'); };
+    utter.onerror = function(){ face.classList.remove('is-talking'); };
+    window.speechSynthesis.speak(utter);
+  }
+
+  setTimeout(function(){
+    widget.classList.add('is-visible');
+    typeGreeting();
+  }, 900);
+
+  speakBtn.addEventListener('click', speak);
+  closeBtn.addEventListener('click', function(){
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    widget.classList.remove('is-visible');
+  });
+})();
+
+/* ===== EXTRA: project cards flip over to reveal real screenshots on the back ===== */
+(function(){
+  document.querySelectorAll('.project-flip-inner').forEach(function(inner){
+    var suppressClick = false;
+
+    inner.addEventListener('click', function(e){
+      if (suppressClick) { suppressClick = false; return; }
+      if (e.target.closest('[data-no-flip]')) return;
+      inner.classList.toggle('is-flipped');
+    });
+
+    // Swiping on a screenshot shouldn't also flip the card back over.
+    var touchStartX = null;
+    inner.addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; }, { passive: true });
+    inner.addEventListener('touchend', function(e){
+      if (touchStartX === null) return;
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 30 && e.target.closest('[data-photo-back]')) suppressClick = true;
+      touchStartX = null;
+    }, { passive: true });
+  });
+
+  // Mini screenshot carousel on each card's back face.
+  document.querySelectorAll('[data-photo-back]').forEach(function(wrap){
+    var track = wrap.querySelector('[data-photo-track]');
+    if (!track) return;
+    var count = track.children.length;
+    var index = 0;
+    var dots = wrap.querySelectorAll('[data-photo-dots] button');
+    var prevBtn = wrap.querySelector('[data-photo-prev]');
+    var nextBtn = wrap.querySelector('[data-photo-next]');
+    if (count <= 1) { if (prevBtn) prevBtn.style.display = 'none'; if (nextBtn) nextBtn.style.display = 'none'; return; }
+
+    function render(){
+      track.style.transform = 'translateX(-' + (index * (100 / count)) + '%)';
+      dots.forEach(function(d, i){
+        d.style.opacity = i === index ? '1' : '.4';
+        d.style.background = i === index ? 'var(--brand)' : 'var(--ink-soft)';
+      });
+    }
+    function goTo(i){ index = ((i % count) + count) % count; render(); }
+
+    if (prevBtn) prevBtn.addEventListener('click', function(e){ e.stopPropagation(); goTo(index - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function(e){ e.stopPropagation(); goTo(index + 1); });
+    dots.forEach(function(d, i){ d.addEventListener('click', function(e){ e.stopPropagation(); goTo(i); }); });
+
+    var touchStartX = null;
+    wrap.addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; }, { passive: true });
+    wrap.addEventListener('touchend', function(e){
+      if (touchStartX === null) return;
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      var threshold = 35;
+      if (dx > threshold) goTo(index - 1);
+      else if (dx < -threshold) goTo(index + 1);
+      touchStartX = null;
+    }, { passive: true });
+
+    render();
+  });
+})();
+
+/* ===== EXTRA: certificate / document flip-swipe gallery (Achievements) =====
+   Tap or swipe the card and it turns over (a real 3D rotateY flip) to reveal
+   the next certificate/offer-letter/photo. Tap the image itself to open it
+   full-size in the lightbox. */
+(function(){
+  var card = document.getElementById('certFlipCard');
+  var content = document.getElementById('certFlipContent');
+  var prevBtn = document.getElementById('certPrev');
+  var nextBtn = document.getElementById('certNext');
+  var dotsWrap = document.getElementById('certDots');
+  var labelEl = document.getElementById('certLabel');
+  var titleEl = document.getElementById('certTitle');
+  var descEl = document.getElementById('certDesc');
+  if (!card || !content) return;
+
+  var slides = [
+    {
+      title: 'UI/UX Workshop — HCL GUVI (Vortex \'26)',
+      desc: 'Certificate of completion for the UI/UX workshop conducted by HCL GUVI as part of Vortex \'26, the National Level Technical Symposium held by the CSE Association at NIT Tiruchirappalli, 6–8 March 2026.',
+      icon: '📜',
+      filename: 'assets/certificate-guvi-uiux.jpg'
+    },
+    {
+      title: 'HACKWELL 2026 — Final Round Qualifier',
+      desc: 'Certificate of Qualification for reaching the Final Round of HACKWELL 2026, organized by the Department of Artificial Intelligence and Data Science, Saranathan College of Engineering, in association with Microsoft.',
+      icon: '🏆',
+      filename: 'assets/certificate-hackwell.jpg'
+    },
+    {
+      title: 'AI Internship — InternsForge Skill India Pvt. Ltd.',
+      desc: 'Letter of appointment confirming a 3-month Artificial Intelligence internship with InternsForge Skill India Pvt. Ltd., dated 24 April 2026, starting the first week of June 2026.',
+      icon: '💼',
+      filename: 'assets/internsforge-offer-letter.pdf'
+    },
+    {
+      title: 'Content Writing Internship — InAmigos Foundation',
+      desc: 'Certificate of Selection confirming a Content Writing internship at InAmigos Foundation, secured through Internshala.',
+      icon: '💼',
+      filename: 'assets/certificate-internshala.jpg'
+    },
+    {
+      title: 'UI/UX Webinar — BrandMonk Academy',
+      desc: 'Certificate of participation for the UI/UX webinar held by BrandMonk Academy on 29 May 2026, in association with the National Skill Development Corporation.',
+      icon: '🎨',
+      filename: 'assets/certificate-brandmonk-uiux.jpg'
+    },
+    {
+      title: 'Video Editing Webinar — BrandMonk Academy',
+      desc: 'Certificate of participation for the Video Editing webinar held by BrandMonk Academy on 14 April 2026.',
+      icon: '🎬',
+      filename: 'assets/certificate-brandmonk-video.jpg'
+    }
+  ];
+
+  var index = 0;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function buildDots(){
+    dotsWrap.innerHTML = '';
+    slides.forEach(function(_, i){
+      var d = document.createElement('button');
+      d.type = 'button';
+      d.setAttribute('aria-label', 'Show document ' + (i + 1));
+      d.className = 'w-2 h-2 rounded-full transition-opacity';
+      d.style.background = i === index ? 'var(--brand)' : 'var(--ink-soft)';
+      d.style.opacity = i === index ? '1' : '.4';
+      d.addEventListener('click', function(e){ e.stopPropagation(); goTo(i, i > index ? 'next' : 'prev'); });
+      dotsWrap.appendChild(d);
+    });
+  }
+
+  function renderContent(){
+    var s = slides[index];
+    var isPdf = /\.pdf$/i.test(s.filename);
+    if (isPdf) {
+      content.innerHTML =
+        '<a href="' + s.filename + '" target="_blank" rel="noopener" data-no-flip class="flex flex-col items-center justify-center gap-2 w-full h-full">' +
+          '<span style="font-size:2.4rem;">' + s.icon + '</span>' +
+          '<span class="font-mono text-xs text-[var(--brand)] underline">open PDF ↗</span>' +
+        '</a>';
+    } else {
+      content.innerHTML =
+        '<img src="' + s.filename + '" alt="' + s.title.replace(/"/g,'&quot;') + '" data-lightbox-src="' + s.filename + '" data-no-flip class="w-full h-full object-cover">';
+    }
+    labelEl.textContent = 'document ' + (index + 1) + ' / ' + slides.length;
+    titleEl.textContent = s.title;
+    descEl.textContent = s.desc;
+    buildDots();
+  }
+
+  function flipTo(newIndex, direction){
+    if (reduceMotion) {
+      index = newIndex;
+      renderContent();
+      return;
+    }
+    card.style.transition = 'transform .35s cubic-bezier(.3,.6,.4,1)';
+    card.style.transform = 'rotateY(' + (direction === 'prev' ? '-90deg' : '90deg') + ')';
+    setTimeout(function(){
+      index = newIndex;
+      renderContent();
+      card.style.transition = 'none';
+      card.style.transform = 'rotateY(' + (direction === 'prev' ? '90deg' : '-90deg') + ')';
+      // force reflow so the next transition actually runs
+      void card.offsetWidth;
+      card.style.transition = 'transform .35s cubic-bezier(.3,.6,.4,1)';
+      card.style.transform = 'rotateY(0deg)';
+    }, 350);
+  }
+
+  function goTo(i, direction){
+    var newIndex = ((i % slides.length) + slides.length) % slides.length;
+    if (newIndex === index) return;
+    flipTo(newIndex, direction || (newIndex > index ? 'next' : 'prev'));
+  }
+
+  prevBtn.addEventListener('click', function(e){ e.stopPropagation(); goTo(index - 1, 'prev'); });
+  nextBtn.addEventListener('click', function(e){ e.stopPropagation(); goTo(index + 1, 'next'); });
+
+  card.addEventListener('click', function(e){
+    if (e.target.closest('[data-no-flip]')) return;
+    goTo(index + 1, 'next');
+  });
+
+  var touchStartX = null;
+  card.addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; }, { passive: true });
+  card.addEventListener('touchend', function(e){
+    if (touchStartX === null) return;
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    var threshold = 40;
+    if (dx > threshold) goTo(index - 1, 'prev');
+    else if (dx < -threshold) goTo(index + 1, 'next');
+    touchStartX = null;
+  }, { passive: true });
+
+  renderContent();
+})();
+
+/* ===== EXTRA: contact form -> real submission via Formspree, no page reload ===== */
+(function(){
+  var form = document.getElementById('contactForm');
+  var status = document.getElementById('formStatus');
+  if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var btn = form.querySelector('button[type="submit"]');
+    var originalLabel = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    status.textContent = '';
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res){
+      if (res.ok) {
+        status.textContent = "Sent — I'll get back to you soon!";
+        status.style.color = 'var(--brand)';
+        form.reset();
+      } else {
+        status.textContent = 'Something went wrong — try again in a bit.';
+        status.style.color = '#C4342B';
+      }
+    }).catch(function(){
+      status.textContent = 'Network error — try again in a bit.';
+      status.style.color = '#C4342B';
+    }).finally(function(){
+      btn.disabled = false;
+      btn.textContent = originalLabel;
+    });
+  });
+})();
+
+/* ===== EXTRA: konami code easter egg -> confetti burst ===== */
+(function(){
+  var canvas = document.getElementById('confettiCanvas');
+  var easterToast = document.getElementById('easterToast');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var particles = [];
+  var running = false;
+
+  function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function burst(){
+    var colors = ['#6E56CF', '#E0A23B', '#9B7FE0', '#2B2438'];
+    for (var i = 0; i < 140; i++) {
+      particles.push({
+        x: canvas.width / 2,
+        y: canvas.height / 3,
+        vx: (Math.random() - 0.5) * 14,
+        vy: Math.random() * -12 - 4,
+        size: Math.random() * 6 + 3,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rot: Math.random() * 360,
+        vr: (Math.random() - 0.5) * 12,
+        life: 0
+      });
+    }
+    if (!running) {
+      running = true;
+      requestAnimationFrame(loop);
+    }
+  }
+
+  function loop(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(function(p){
+      p.vy += 0.35;
+      p.x += p.vx;
+      p.y += p.vy;
+      p.rot += p.vr;
+      p.life++;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI / 180);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = Math.max(0, 1 - p.life / 140);
+      ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+      ctx.restore();
+    });
+    particles = particles.filter(function(p){ return p.life < 140 && p.y < canvas.height + 40; });
+    if (particles.length) {
+      requestAnimationFrame(loop);
+    } else {
+      running = false;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+
+  var sequence = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  var progress = 0;
+  window.addEventListener('keydown', function(e){
+    var key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    if (key === sequence[progress]) {
+      progress++;
+      if (progress === sequence.length) {
+        progress = 0;
+        burst();
+        if (easterToast) {
+          easterToast.classList.add('is-visible');
+          setTimeout(function(){ easterToast.classList.remove('is-visible'); }, 3200);
+        }
+      }
+    } else {
+      progress = (key === sequence[0]) ? 1 : 0;
+    }
+  });
+})();
+/* ===== EXTRA: SQL Challenge Flashcards — a real in-browser SQL engine ===== */
+(function(){
+  var card = document.getElementById('sqlChallengeCard');
+  if (!card) return;
+
+  var challenges = [
+    {
+      difficulty: 'medium · window functions',
+      title: 'Top scorer per department (DENSE_RANK)',
+      statement: 'For each department, find employees ranked #1 by score using DENSE_RANK so ties share the same rank. Return department, name, score, rank.',
+      setupSQL: "CREATE TABLE employees (id INTEGER, name TEXT, department TEXT, score INTEGER);" +
+        "INSERT INTO employees VALUES " +
+        "(1,'Asha','Engineering',91),(2,'Ravi','Engineering',91),(3,'Meena','Engineering',77)," +
+        "(4,'Kabir','Design',85),(5,'Zara','Design',85),(6,'Tom','Design',60)," +
+        "(7,'Ivy','Sales',72),(8,'Leo','Sales',68);",
+      solutionSQL: "SELECT department, name, score,\n  DENSE_RANK() OVER (PARTITION BY department ORDER BY score DESC) AS rnk\nFROM employees\nQUALIFY rnk = 1;\n-- (sql.js/SQLite: use a subquery instead of QUALIFY)\nSELECT * FROM (\n  SELECT department, name, score,\n    DENSE_RANK() OVER (PARTITION BY department ORDER BY score DESC) AS rnk\n  FROM employees\n) WHERE rnk = 1;"
+    },
+    {
+      difficulty: 'easy · conditional aggregation',
+      title: 'Orders by status, pivoted into columns',
+      statement: 'Given an orders table, return one row per customer with columns for count of "pending" and count of "delivered" orders, using conditional aggregation (no PIVOT keyword).',
+      setupSQL: "CREATE TABLE orders (id INTEGER, customer TEXT, status TEXT);" +
+        "INSERT INTO orders VALUES " +
+        "(1,'Nisha','delivered'),(2,'Nisha','pending'),(3,'Nisha','delivered')," +
+        "(4,'Omar','pending'),(5,'Omar','pending'),(6,'Priya','delivered');",
+      solutionSQL: "SELECT customer,\n  SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) AS pending_count,\n  SUM(CASE WHEN status = 'delivered' THEN 1 ELSE 0 END) AS delivered_count\nFROM orders\nGROUP BY customer;"
+    },
+    {
+      difficulty: 'medium · filtering & parsing',
+      title: 'Movies above a rating threshold',
+      statement: 'Titles are stored with the release year embedded, like "Inception (2010)". Return the movie name (year stripped out) and rating for every movie with a rating above 80, ordered highest first.',
+      setupSQL: "CREATE TABLE movies (title TEXT, rating INTEGER);" +
+        "INSERT INTO movies VALUES " +
+        "('Inception (2010)',87),('Her (2013)',79),('Arrival (2016)',94),('Cars 2 (2011)',39);",
+      solutionSQL: "SELECT TRIM(SUBSTR(title, 1, INSTR(title, '(') - 1)) AS movie_name, rating\nFROM movies\nWHERE rating > 80\nORDER BY rating DESC;"
+    }
+  ];
+
+  var idx = 0;
+  var SQL = null;
+  var engineReady = false;
+
+  var els = {
+    difficulty: document.getElementById('sqlDifficulty'),
+    progress: document.getElementById('sqlProgress'),
+    title: document.getElementById('sqlTitle'),
+    statement: document.getElementById('sqlStatement'),
+    schemaPreview: document.getElementById('sqlSchemaPreview'),
+    input: document.getElementById('sqlInput'),
+    run: document.getElementById('sqlRun'),
+    reveal: document.getElementById('sqlReveal'),
+    status: document.getElementById('sqlEngineStatus'),
+    resultWrap: document.getElementById('sqlResultWrap'),
+    result: document.getElementById('sqlResult'),
+    planWrap: document.getElementById('sqlPlanWrap'),
+    plan: document.getElementById('sqlPlan'),
+    answerWrap: document.getElementById('sqlAnswerWrap'),
+    answerQuery: document.getElementById('sqlAnswerQuery'),
+    prev: document.getElementById('sqlPrev'),
+    next: document.getElementById('sqlNext')
+  };
+
+  function renderTable(container, columns, rows){
+    if (!rows.length) {
+      container.innerHTML = '<div class="font-mono text-xs text-[var(--ink-soft)] px-3 py-2">no rows</div>';
+      return;
+    }
+    var html = '<table class="w-full text-left font-mono text-xs"><thead><tr>';
+    columns.forEach(function(c){ html += '<th class="px-3 py-2 border-b border-[var(--line)] text-[var(--brand)]">' + c + '</th>'; });
+    html += '</tr></thead><tbody>';
+    rows.forEach(function(r){
+      html += '<tr>';
+      r.forEach(function(v){ html += '<td class="px-3 py-1.5 border-b border-[var(--line)]">' + (v === null ? 'NULL' : v) + '</td>'; });
+      html += '</tr>';
+    });
+    html += '</tbody></table>';
+    container.innerHTML = html;
+  }
+
+  function loadChallenge(){
+    var c = challenges[idx];
+    els.difficulty.textContent = c.difficulty;
+    els.progress.textContent = (idx + 1) + ' / ' + challenges.length;
+    els.title.textContent = c.title;
+    els.statement.innerHTML = '<span class="text-[var(--brand)] select-none">// </span>' + c.statement;
+    els.input.value = '';
+    els.resultWrap.classList.add('hidden');
+    els.planWrap.classList.add('hidden');
+    els.answerWrap.classList.add('hidden');
+    els.schemaPreview.innerHTML = '<div class="font-mono text-xs text-[var(--ink-soft)] px-3 py-2">loading preview…</div>';
+    if (engineReady) previewSchema(c);
+  }
+
+  function previewSchema(c){
+    try {
+      var db = new SQL.Database();
+      db.run(c.setupSQL);
+      var tableNameMatch = c.setupSQL.match(/CREATE TABLE (\w+)/i);
+      var tableName = tableNameMatch ? tableNameMatch[1] : null;
+      if (tableName) {
+        var res = db.exec('SELECT * FROM ' + tableName + ' LIMIT 5;');
+        if (res.length) renderTable(els.schemaPreview, res[0].columns, res[0].values);
+      }
+      db.close();
+    } catch (e) {
+      els.schemaPreview.innerHTML = '<div class="font-mono text-xs text-[var(--ink-soft)] px-3 py-2">preview unavailable</div>';
+    }
+  }
+
+  function runQuery(){
+    if (!engineReady) return;
+    var c = challenges[idx];
+    var userSQL = els.input.value.trim();
+    if (!userSQL) return;
+    try {
+      var db = new SQL.Database();
+      db.run(c.setupSQL);
+      var res = db.exec(userSQL);
+      els.resultWrap.classList.remove('hidden');
+      if (res.length) {
+        renderTable(els.result, res[0].columns, res[0].values);
+      } else {
+        els.result.innerHTML = '<div class="font-mono text-xs text-[var(--ink-soft)] px-3 py-2">query ran, no result set</div>';
+      }
+      try {
+        var plan = db.exec('EXPLAIN QUERY PLAN ' + userSQL);
+        els.planWrap.classList.remove('hidden');
+        if (plan.length) {
+          renderTable(els.plan, plan[0].columns, plan[0].values);
+        } else {
+          els.plan.innerHTML = '<div class="font-mono text-xs text-[var(--ink-soft)] px-3 py-2">no plan available for this statement</div>';
+        }
+      } catch (planErr) {
+        els.planWrap.classList.add('hidden');
+      }
+      db.close();
+    } catch (e) {
+      els.resultWrap.classList.remove('hidden');
+      els.planWrap.classList.add('hidden');
+      els.result.innerHTML = '<div class="font-mono text-xs px-3 py-2" style="color:#C4342B">' + (e.message || 'SQL error') + '</div>';
+    }
+  }
+
+  els.reveal.addEventListener('click', function(){
+    var c = challenges[idx];
+    els.answerQuery.textContent = c.solutionSQL;
+    els.answerWrap.classList.toggle('hidden');
+  });
+  els.run.addEventListener('click', runQuery);
+  els.prev.addEventListener('click', function(){ idx = (idx - 1 + challenges.length) % challenges.length; loadChallenge(); });
+  els.next.addEventListener('click', function(){ idx = (idx + 1) % challenges.length; loadChallenge(); });
+
+  loadChallenge();
+
+  var script = document.createElement('script');
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js';
+  script.onload = function(){
+    initSqlJs({ locateFile: function(f){ return 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/' + f; } })
+      .then(function(sql){
+        SQL = sql;
+        engineReady = true;
+        els.status.textContent = 'engine ready';
+        previewSchema(challenges[idx]);
+      })
+      .catch(function(){
+        els.status.textContent = 'engine failed to load — check your connection';
+      });
+  };
+  script.onerror = function(){
+    els.status.textContent = 'engine failed to load — check your connection';
+  };
+  document.head.appendChild(script);
+})();
+</script>
+</body>
+</html>
